@@ -1,0 +1,1 @@
+This is a gem that are produced by the [[Champions]] when they repress their magical powers. The Champions build up power within them and then concentrate it within a magical gem. They then teleport that gem to a random location within a 25ish miles of them.

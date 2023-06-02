@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- <script src="https://kit.fontawesome.com/a076d05399.js"></script> -->
+  <link rel="stylesheet" href="css/pageStyle.css" type="text/css">
+  <link rel="stylesheet" href="css/cardStyle.css" type="text/css">
+  <link rel="stylesheet" href="css/customFont.css" type="text/css">
+  <!-- <script src="https://kit.fontawesome.com/0b484356bd.js" crossorigin="anonymous"></script> -->
+</head>
+
+<body>
+  <div class="page">
+
+    <div class="clearfix bshadow0 pbs">
+      <i class="icon-plain-circle"></i>
+      <span class="icon-plain-circle"></span>
+      <span class="mls"> icon-plain-circle</span>
+    </div>
+
+    Facet:
+    <i class="fas fa-circle" style="color: brown;"></i>
+    <br>
+
+    Armor:
+    <svg xmlns="http://www.w3.org/2000/svg" style="width: 15px;" viewBox="0 0 512 512">
+      <path d="M256 0c4.6 0 9.2 1 13.4 2.9L457.7 82.8c22 9.3 38.4 31 38.3 57.2c-.5 99.2-41.3 280.7-213.6 363.2c-16.7 8-36.1 8-52.8 0C57.3 420.7 16.5 239.2 16 140c-.1-26.2 16.3-47.9 38.3-57.2L242.7 2.9C246.8 1 251.4 0 256 0z"/>
+    </svg>
+    <br>
+
+
+    <svg xmlns="http://www.w3.org/2000/svg" style="width: 15px;" viewBox="0 0 512 512">
+      <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM232 344V280H168c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V168c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H280v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" style="width: 15px;" viewBox="0 0 448 512">
+      <path d="M349.4 44.6c5.9-13.7 1.5-29.7-10.6-38.5s-28.6-8-39.9 1.8l-256 224c-10 8.8-13.6 22.9-8.9 35.3S50.7 288 64 288H175.5L98.6 467.4c-5.9 13.7-1.5 29.7 10.6 38.5s28.6 8 39.9-1.8l256-224c10-8.8 13.6-22.9 8.9-35.3s-16.6-20.7-30-20.7H272.5L349.4 44.6z"/>
+    </svg>
+  </div>
+  <% for(let p = 0; p < data.length; p++){ %>
+    
+    <div class="page">
+      <% const page = data[p]; %>
+      <% for (let c = 0; c < page.length; c++){ %>
+        <% const card = page[c]; %>
+        <div class="card">
+          <img src="pictures/CardOutline.png" alt="outlinedCard" class="backCard">
+          <div class="title">
+            
+          </div>
+          <img src= <%- card.orbLinks[0]  %> class="innerCircle innerCircleTop" alt="">
+          <img src= <%- card.orbLinks[1]  %> class="innerCircle innerCircleBottom" alt="">
+          <img src= <%- card.orbLinks[2]  %> class="innerCircle innerCircleLeft" alt="">
+          <img src= <%- card.orbLinks[3]  %> class="innerCircle innerCircleRight" alt="">
+          
+          <img src="pictures/CircleBlack.png" class="outerCircle outerCircleTop" alt="">
+          <img src="pictures/CircleBlack.png" class="outerCircle outerCircleBottom" alt="">
+          <img src="pictures/CircleBlack.png" class="outerCircle outerCircleLeft" alt="">
+          <img src="pictures/CircleBlack.png" class="outerCircle outerCircleRight" alt="">
+
+          <div class="borderTest cardCenter">
+            <div class="cardName">
+              <%- card.name %>
+            </div>
+            <hr class="taperedLine">
+            <% for(let htmlTextIndex = 0; htmlTextIndex < card.htmlTexts.length; htmlTextIndex++) { %>
+              <div>
+                <%- card.htmlTexts[htmlTextIndex] %>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      <% } %>
+    </div>
+  <% } %>
+</body>
+</html>

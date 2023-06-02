@@ -1,0 +1,23 @@
+> this is a test 
+> hello world too
+>> this is another test
+>> 
+
+
+-   Introduction: Rogerius observes his parents, Caleb and Sarah, having a serious conversation about the shortage of obsidian, a crucial material for their arrowhead production.
+- Village
+	- Rogerius' Determination: Filled with a sense of responsibility and determination, Rogerius decides to take matters into his own hands and find a solution to their problem.
+	-   Planning: Rogerius quietly gathers information about the location of a nearby obsidian source, studying maps and listening to conversations in the village to ensure he has accurate information.
+	-   Nighttime Escape: Under the cover of darkness, Rogerius sneaks out of the village, avoiding the guards and any potential attention from the monsters that have invaded their surroundings.
+-   Woods
+	- The Wilderness: Rogerius finds himself in the dangerous wilderness, where menacing creatures lurk in the shadows. He carefully navigates through the dense forest, staying alert to any signs of danger.
+	-   Obstacle Encounter: Rogerius encounters a hostile creature, perhaps a giant spider or a pack of wild wolves, and must quickly come up with a clever plan to outsmart them and continue his journey.
+	-   The Hidden Cave: Following the clues he gathered, Rogerius discovers a hidden cave deep in the wilderness, which is rumored to contain a rich deposit of obsidian.
+-   Cave
+	- Obtaining the Obsidian: Rogerius cautiously enters the cave, using his knowledge of minerals to identify the valuable obsidian. He collects as much as he can carry, carefully placing the sharp fragments into a backpack.
+	-   Close Call: Just as Rogerius is about to leave the cave, he is startled by the sound of approaching monsters. He hides and remains completely still, hoping they won't discover him.
+	-   Stealthy Escape: Once the monsters move away, Rogerius seizes the opportunity to sneak out of the cave and make his way back through the wilderness, constantly on guard for any more encounters.
+-   Village
+	- Return to the Village: Exhausted but elated, Rogerius finally returns to the village, carrying his precious cargo of obsidian. He manages to slip back into his house unnoticed, eager to surprise his parents.
+	-   Reunion and Success: Rogerius reveals his achievement to Caleb and Sarah, who are amazed and proud of their resourceful son. The family celebrates their newfound abundance of obsidian, envisioning a brighter future for their arrowhead production.
+-   Epilogue: Rogerius' bravery and determination inspire others in the village to venture out and gather more resources, strengthening their community and fortifying their defenses against the monsters.
