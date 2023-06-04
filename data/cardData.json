@@ -1,1 +1,9 @@
-[{"name":"Brass Chest Piece","textBlocks":["Text:","This card gains +1 Shied for each <plain-circle|green><plain-circle|green>\nSome more text here"]}]
+[
+    {
+        "name": "Brass Chest Piece",
+        "textBlocks": [
+            "Text:",
+            "This card gains +1 Shied for each <plain-circle|green><plain-circle|green>\nSome more text here"
+        ]
+    }
+]
