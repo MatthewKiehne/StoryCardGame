@@ -1,6 +1,7 @@
 interface CardData {
     name: string,
-    textBlocks: string[]
+    textBlocks: string[],
+    orbs: number[] | null
 }
 
 export { CardData }

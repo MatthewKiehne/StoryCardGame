@@ -42,7 +42,8 @@ export class CardParser implements HtmlParser<CardData> {
         const dom = new JSDOM(htmlString);
         const result: CardData = {
             name: "",
-            textBlocks: []
+            textBlocks: [],
+            orbs: null
         };
 
         const firstList = dom.window.document.querySelector("ul");

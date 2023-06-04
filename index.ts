@@ -1,9 +1,7 @@
-const express = require('express');
-const cardList = require('./data/cardData.json');
-const util = require('node:util');
-const exec = util.promisify(require('node:child_process').exec);
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
+import express from 'express'
+import * as cardList from './data/cardData.json';
+import { CardData } from './commands/interfaces/CardData';
+import { RenderCardData } from './commands/interfaces/RenderCardData';
 
 const app = express();
 
@@ -11,9 +9,9 @@ app.set('view engine', 'ejs');
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-    const pageSize = 9;
-    let pageIndex = 0;
-    let pages = [];
+    const pageSize: number = 9;
+    let pageIndex: number = 0;
+    let pages: RenderCardData[][] = [];
 
     while (pageSize * pageIndex < cardList.length) {
         let pageCardCount = pageSize
@@ -21,31 +19,35 @@ app.get('/', (req, res) => {
             pageCardCount = cardList.length % pageSize
         }
 
-        let page = [];
+        let page: RenderCardData[] = [];
         for (let i = 0; i < pageCardCount; i++) {
-            const cardData = cardList[(pageSize * pageIndex) + i];
+            const cardData: CardData = cardList[(pageSize * pageIndex) + i];
 
-            let orbLinks = [];
+            const renderCardData: RenderCardData = 
+            {
+                name: cardData.name,
+                orbs: cardData.orbs,
+                textBlocks: cardData.textBlocks,
+                orbLinks: [],
+                htmlTexts: []
+            };
+
             if (cardData.orbs == null || cardData.orbs.length == 0) {
                 for (let c = 0; c < 4; c++) {
-                    orbLinks[c] = intToColorLink(3);
+                    renderCardData.orbLinks.push(intToColorLink(3));
                 }
             }
             else {
                 for (let c = 0; c < cardData.orbs.length; c++) {
-                    orbLinks[c] = intToColorLink(cardData.orbs[c]);
+                    renderCardData.orbLinks.push(intToColorLink(cardData.orbs[c]));
                 }
             }
 
-            cardData.orbLinks = orbLinks;
-
-            let htmlBlocks = [];
             for (let cardTextIndex = 0; cardTextIndex < cardData.textBlocks.length; cardTextIndex++) {
-                htmlBlocks[cardTextIndex] = textToHtmlText(cardData.textBlocks[cardTextIndex]);
+                renderCardData.htmlTexts.push(textToHtmlText(cardData.textBlocks[cardTextIndex]));
             }
-            cardData.htmlTexts = htmlBlocks;
 
-            page[i] = cardData;
+            page[i] = renderCardData;
         }
 
         pages[pageIndex] = page;
@@ -58,9 +60,9 @@ app.get('/', (req, res) => {
 app.get('/orbCards', (req, res) => {
     const pageSize = 9;
     let pageIndex = 0;
-    let pages = [];
+    let pages: any[] = [];
 
-    let linkCardList = [];
+    let linkCardList: any[] = [];
 
     for (let top = 0; top < 3; top++) {
         for (let right = 0; right < 3; right++) {
@@ -80,12 +82,12 @@ app.get('/orbCards', (req, res) => {
             pageCardCount = linkCardList.length % pageSize
         }
 
-        let page = [];
+        let page: any = [];
         for (let i = 0; i < pageCardCount; i++) {
 
             const ordCardData = linkCardList[(pageSize * pageIndex) + i];
 
-            let orbLinks = [];
+            let orbLinks: string[] = [];
             for (let c = 0; c < ordCardData.orbs.length; c++) {
                 orbLinks[c] = intToColorLink(ordCardData.orbs[c]);
             }
@@ -104,10 +106,9 @@ app.get('/orbCards', (req, res) => {
 
 app.listen(3000, () => {
     console.log('Server started on port 3000');
-    lsExample(); 
 });
 
-function intToColorLink(value) {
+function intToColorLink(value: number) : string {
     if (value === 0) {
         return "pictures/CircleBlue.png"
     }
@@ -124,14 +125,14 @@ function intToColorLink(value) {
     return "pictures/CircleWhite.png"
 }
 
-function textToHtmlText(text) {
-    let stringToParse = text;
+function textToHtmlText(text: string): string {
+    let stringToParse: string = text;
     if (text == null || text == "") {
         return ""
     }
 
-    let result = "";
-    let parseStart = stringToParse.indexOf("<");
+    let result: string = "";
+    let parseStart: number = stringToParse.indexOf("<");
 
     if (parseStart === -1) {
         return text;
@@ -139,7 +140,7 @@ function textToHtmlText(text) {
 
     while (parseStart != -1) {
         result = result + stringToParse.substring(0, parseStart);
-        parseEnd = stringToParse.indexOf(">");
+        const parseEnd: number= stringToParse.indexOf(">");
 
         const parseIconValue = stringToParse.substring(parseStart + 1, parseEnd);
         result = result + parseIcon(parseIconValue);
@@ -151,7 +152,7 @@ function textToHtmlText(text) {
     return result;
 }
 
-function parseIcon(stringValue) {
+function parseIcon(stringValue: string) {
     if (stringValue == null) {
         return "";
     }
@@ -173,7 +174,7 @@ function parseIcon(stringValue) {
     return result;
 }
 
-function parseIconDescriptor(descriptor) {
+function parseIconDescriptor(descriptor: string) {
     if (descriptor == null) {
         return "";
     }
@@ -191,49 +192,5 @@ function parseIconDescriptor(descriptor) {
             return "color:red";
         default:
             return "";
-    }
-}
-
-
-async function lsExample() {
-    const { stdout, stderr } = await exec('dir');
-    console.log('stdout:', stdout);
-    console.error('stderr:', stderr);
-
-    console.log("ran");
-
-    const dom = new JSDOM(`<ul>
-    <li>Title: Brass Chest Piece</li>
-    <li>Cost: 50</li>
-    <li>Tags: Item, Armor, Chest, Metal</li>
-    <li>Text:
-      <ul>
-        <li>This card gains +1 Shied for each &lt;plain-circle|green&gt;&lt;plain-circle|green&gt;</li>
-        <li>Some more text here</li>
-      </ul>
-    </li>
-  </ul>`);
-
-    const firstList = dom.window.document.querySelector("ul");
-    console.log(firstList);
-    console.log(firstList.children);
-    console.log(firstList.children.length)
-    for(let c = 0; c < firstList.children.length; c++)
-    {
-        console.log(firstList.children[c]);
-        const content = firstList.children[c].textContent;
-        console.log(content);
-        if(content.startsWith("Title:"))
-        {
-            console.log("found the title!");
-        } else if(content.startsWith("Text:"))
-        {
-            const texts = firstList.children[c].querySelector("ul");
-            for(let t = 0; t < texts.children.length; t++)
-            {
-                console.log("line: " + texts.children[t].textContent);
-            }
-            console.log("found the text!");
-        }
     }
 }
