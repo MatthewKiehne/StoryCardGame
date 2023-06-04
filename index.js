@@ -1,5 +1,5 @@
 const express = require('express');
-const cardList = require('./cardData.json');
+const cardList = require('./data/cardData.json');
 const util = require('node:util');
 const exec = util.promisify(require('node:child_process').exec);
 const jsdom = require("jsdom");

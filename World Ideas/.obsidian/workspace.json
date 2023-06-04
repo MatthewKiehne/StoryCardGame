@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Cards/Items/Heavy Armor (Card).md",
+                "file": "BattleMaps/Descriptions/Guarded Cave.md",
                 "mode": "source",
                 "source": false
               }
@@ -93,7 +93,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Cards/Items/Heavy Armor (Card).md",
+                "file": "BattleMaps/Descriptions/Guarded Cave.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -110,7 +110,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Cards/Items/Heavy Armor (Card).md",
+                "file": "BattleMaps/Descriptions/Guarded Cave.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -133,7 +133,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Cards/Items/Heavy Armor (Card).md"
+                "file": "BattleMaps/Descriptions/Guarded Cave.md"
               }
             }
           }
@@ -156,7 +156,14 @@
   },
   "active": "c32be4c681b8caf9",
   "lastOpenFiles": [
+    "Stat Blocks/Guard.md",
+    "BattleMaps/Descriptions/Guarded Cave.md",
+    "Stat Blocks",
     "Cards/Items/Heavy Armor (Card).md",
+    "Events/Random Ideas.md",
+    "BattleMaps/Descriptions",
+    "BattleMaps/Maps",
+    "BattleMaps",
     "Cards/Items/output.html",
     "Events/Arcs/Obsidian Quest.md",
     "Cards/Items",
@@ -185,13 +192,7 @@
     "Characters/Folk",
     "Templates",
     "Locations/Cosmic/Ezari (Physical Realm).md",
-    "WritingNotes",
     "Untitled 1.md",
-    "Events/Arcs",
-    "Locations/Cosmic/Soul Domain.md",
-    "History/Overviews/Age of Collapse Overview.md",
-    "Locations/Cosmic",
-    "World Notes",
-    "History/Overviews/Age of Waring Gods Overview.md"
+    "Locations/Cosmic/Soul Domain.md"
   ]
 }
