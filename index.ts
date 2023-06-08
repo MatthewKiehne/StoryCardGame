@@ -1,7 +1,7 @@
 import express from 'express'
 import * as cardList from './data/cardData.json';
-import { CardData } from './commands/interfaces/CardData';
-import { RenderCardData } from './commands/interfaces/RenderCardData';
+import { CardData } from './commands/interfaces/ObsidianData/Card';
+import { RenderCardData } from './commands/interfaces/DisplayData/RenderCardData';
 
 const app = express();
 

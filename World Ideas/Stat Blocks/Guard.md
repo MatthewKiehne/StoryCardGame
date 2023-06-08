@@ -1,4 +1,4 @@
-* Title: Guard
+* Name: Guard
 * Traits:
 	* Movement: 3
 	* Dodge: 1

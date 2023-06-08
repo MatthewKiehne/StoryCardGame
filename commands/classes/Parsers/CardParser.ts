@@ -1,6 +1,6 @@
-import { HtmlParser } from '../interfaces/HtmlParser'
-import { CardData } from '../interfaces/CardData'
-import { MarkdownToHtml } from './MarkdownToHtml';
+import { HtmlParser } from '../../interfaces/HtmlParser'
+import { CardData } from '../../interfaces/ObsidianData/Card'
+import { MarkdownToHtml } from '../Utils/MarkdownToHtml';
 import * as jsdom from "jsdom";
 import * as fs from 'fs';
 

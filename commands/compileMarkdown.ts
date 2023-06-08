@@ -1,7 +1,7 @@
 
 import * as fs from 'fs';
-import { CardData } from './interfaces/CardData';
-import { CardParser } from './classes/CardParser';
+import { CardData } from './interfaces/ObsidianData/Card';
+import { CardParser } from './classes/Parsers/CardParser';
 
 
 async function createAllCards() {
