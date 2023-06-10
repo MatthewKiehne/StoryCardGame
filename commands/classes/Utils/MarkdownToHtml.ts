@@ -6,9 +6,17 @@ const exec = util.promisify(h.exec);
 
 export class MarkdownToHtml {
 
-    constructor() { }
+    async markdownToHtmlFile(sourceDirectory: string, outputDirectory: string) {
+        if (fs.existsSync(outputDirectory)) {
+            fs.rmSync(outputDirectory, { recursive: true, force: true });
+        }
 
-    async convertMarkdownToHtml(currentPath: string, outputDirectory: string) {
+        fs.mkdirSync(outputDirectory)
+
+        await this.convertMarkdownToHtml(sourceDirectory, outputDirectory);
+    }
+
+    private async convertMarkdownToHtml(currentPath: string, outputDirectory: string) {
         var files = fs.readdirSync(currentPath);
 
         for (let i = 0; i < files.length; i++) {
@@ -26,18 +34,8 @@ export class MarkdownToHtml {
         }
     }
 
-    async runMarkdownToHtmlCommand(cardPath: string, fileName: string, outputDirectory: string): Promise<void> {
+    private async runMarkdownToHtmlCommand(cardPath: string, fileName: string, outputDirectory: string): Promise<void> {
         const fileParts = fileName.split("\.");
         const { stdout, stderr } = await exec("pandoc -f markdown -t html \"" + cardPath + "\" -o \"" + outputDirectory + "\\" + fileParts[0] + ".html\"");
-    }
-
-    async markdownToHtmlFile(sourceDirectory: string, outputDirectory: string) {
-        if (fs.existsSync(outputDirectory)) {
-            fs.rmSync(outputDirectory, { recursive: true, force: true });
-        }
-
-        fs.mkdirSync(outputDirectory)
-
-        await this.convertMarkdownToHtml(sourceDirectory, outputDirectory);
     }
 }

@@ -2,16 +2,22 @@
 import * as fs from 'fs';
 import { CardData } from './interfaces/ObsidianData/Card';
 import { CardParser } from './classes/Parsers/CardParser';
+import { parseDirectoryToData } from './classes/Utils/DirectoryToData';
 
 
-async function createAllCards() {
+async function compileAll() {
 
-    const cardParser: CardParser = new CardParser();
-    const cardData: CardData[] = await cardParser.Parse();
-    await createNewFile("./data/cardData.json", JSON.stringify(cardData));
+    const cardDirectory = './World Ideas/Cards';
+    const statBlockDirectory = '../World Ideas/Stat Blocks';
+    const BattleMapDirectory = '../World Ideas/BattleMaps';
 
-    const cardToIndexData: Map<string, number> = cardNameToIndex(cardData);
-    await createNewFile("./data/cardToIndex.json", JSON.stringify(cardToIndexData));
+    await parseDirectoryToData(cardDirectory, "./data/cardToIndex.json", new CardParser());
+
+    // const cardParser: CardParser = new CardParser();
+    // await createNewFile("./data/cardData.json", JSON.stringify(cardData));
+
+    // const cardToIndexData: Map<string, number> = cardNameToIndex(cardData);
+    // await createNewFile(, JSON.stringify(cardToIndexData));
 }
 
 function cardNameToIndex(cardData: CardData[]): Map<string, number> {
@@ -24,12 +30,11 @@ function cardNameToIndex(cardData: CardData[]): Map<string, number> {
     return result;
 }
 
-async function createNewFile(path: string, data: any)
-{
+async function createNewFile(path: string, data: any) {
     if ((await fs).existsSync(path)) {
         fs.rmSync(path, { recursive: true, force: true });
     }
     await fs.writeFileSync(path, data);
 }
 
-createAllCards();
+export { compileAll }

@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node ./index.ts",
-    "compileCards": "ts-node ./commands/compileMarkdown.ts"
+    "start": "ts-node ./index.ts"
   },
   "author": "",
   "license": "ISC",

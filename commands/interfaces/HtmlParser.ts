@@ -1,6 +1,6 @@
 interface HtmlParser<T>
 {
-    Parse(): Promise<T[]>
+    ParseFromString(htmlString: string): Promise<T>
 }
 
 export {HtmlParser}

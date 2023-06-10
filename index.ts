@@ -2,6 +2,7 @@ import express from 'express'
 import * as cardList from './data/cardData.json';
 import { CardData } from './commands/interfaces/ObsidianData/Card';
 import { RenderCardData } from './commands/interfaces/DisplayData/RenderCardData';
+import { compileAll } from './commands/compileMarkdown';
 
 const app = express();
 
@@ -104,7 +105,8 @@ app.get('/orbCards', (req, res) => {
     res.render('backs', { data: pages });
 });
 
-app.listen(3000, () => {
+app.listen(3000, async () => {
+    await compileAll();
     console.log('Server started on port 3000');
 });
 
