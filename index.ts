@@ -4,6 +4,12 @@ import { RenderCardData } from './commands/interfaces/DisplayData/RenderCardData
 import { compileAll } from './commands/compileMarkdown'
 import * as fs from 'fs'
 import { CardConverter } from './commands/classes/Converters/CardConverter'
+import { StatBlock } from './commands/interfaces/ObsidianData/StatBlock'
+import { StatBlockConverter } from './commands/classes/Converters/StatBlockConverter'
+import { RenderStatBlock } from './commands/interfaces/DisplayData/RenderStatBlock'
+import { BattleMapConverter } from './commands/classes/Converters/BattleMapConverter'
+import { BattleMap } from './commands/interfaces/ObsidianData/BattleMap'
+import { RenderBattleMap } from './commands/interfaces/DisplayData/RenderBattleMap'
 const app = express()
 
 app.set('view engine', 'ejs')
@@ -14,9 +20,9 @@ app.get('/', (req, res) => {
     let pageIndex: number = 0
     let pages: RenderCardData[][] = []
 
-    const text: string = fs.readFileSync('./data/card/cardData.json', 'utf-8')
-    let cardList: CardData[] = JSON.parse(text)
-    cardList = cardList.sort((a, b) => a.name.localeCompare(b.name))
+    const text: string = fs.readFileSync('./data/card/cardData.json', 'utf-8');
+    let cardList: CardData[] = JSON.parse(text);
+    cardList = cardList.sort((a, b) => a.name.localeCompare(b.name));
 
     const cardConverter: CardConverter = new CardConverter();
 
@@ -99,6 +105,23 @@ app.get('/orbCards', (req, res) => {
     }
 
     res.render('backs', { data: pages })
+})
+
+app.get('/battleMaps', (req, res) => {
+
+    const text: string = fs.readFileSync('./data/battleMaps/battleMapsData.json', 'utf-8');
+    let battleMaps: BattleMap[] = JSON.parse(text);
+    battleMaps = battleMaps.sort((a, b) => a.name.localeCompare(b.name));
+
+    const battleMapConverter: BattleMapConverter = new BattleMapConverter();
+
+    const data: RenderBattleMap[] = [];
+    for(let i = 0; i < battleMaps.length; i++)
+    {
+        data.push(battleMapConverter.convert(battleMaps[i], {}));
+    }
+
+    res.render('backs', { data: data })
 })
 
 app.listen(3000, async () => {
