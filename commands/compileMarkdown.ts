@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import { CardData } from './interfaces/ObsidianData/Card';
 import { CardParser } from './classes/Parsers/CardParser';
 import { DirectoryToData } from './classes/Utils/DirectoryToData';
+import { StatBlockParser } from './classes/Parsers/StatBlockParser';
 
 
 async function compileAll() {
@@ -12,13 +13,13 @@ async function compileAll() {
     const cardIndexOutput = './data/cardToIndex.json';
 
     const statBlockDirectory = './World Ideas/Stat Blocks';
-    const statBlockOutputFile = "./data/cardToIndex.json";
+    const statBlockOutputFile = "./data/statBlock.json";
     const BattleMapDirectory = './World Ideas/BattleMaps';
 
     const markdownParser: DirectoryToData = new DirectoryToData();
 
     await markdownParser.parse(cardDirectory, cardOutputFile, new CardParser());
-    // await markdownParser.parse(cardDirectory, "./data/cardToIndex.json", new CardParser());
+    await markdownParser.parse(statBlockDirectory, statBlockOutputFile, new StatBlockParser());
 
     // const cardParser: CardParser = new CardParser();
     // await createNewFile("./data/cardData.json", JSON.stringify(cardData));

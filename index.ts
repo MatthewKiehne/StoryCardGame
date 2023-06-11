@@ -9,6 +9,9 @@ const app = express()
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
+const startCustomBracket: string = '&lt;';
+const endCustomBracket: string = '&gt;';
+
 app.get('/', (req, res) => {
     const pageSize: number = 9
     let pageIndex: number = 0
@@ -16,7 +19,7 @@ app.get('/', (req, res) => {
 
     const text: string = fs.readFileSync('./data/cardData.json', 'utf-8')
     let cardList: CardData[] = JSON.parse(text)
-    cardList = cardList.sort((a, b) => a.name.localeCompare(b.name));
+    cardList = cardList.sort((a, b) => a.name.localeCompare(b.name))
 
     let currentPage: RenderCardData[] = []
     for (let c = 0; c < cardList.length; c++) {
@@ -28,11 +31,11 @@ app.get('/', (req, res) => {
         } else if (cardQuantity > 4) {
             cardQuantity = 4
         }
-        cardData.quantity = cardQuantity;
+        cardData.quantity = cardQuantity
 
         for (let q = 0; q < cardQuantity; q++) {
-            const renderCardData: RenderCardData = generateRenderCardData(cardData, q + 1, c + 1, cardList.length);
-            currentPage.push(renderCardData);
+            const renderCardData: RenderCardData = generateRenderCardData(cardData, q + 1, c + 1, cardList.length)
+            currentPage.push(renderCardData)
 
             if (currentPage.length == pageSize) {
                 pages.push(currentPage)
@@ -111,9 +114,9 @@ function generateRenderCardData(cardData: CardData, quantityIndex: number, cardI
         orbLinks: [],
         htmlTexts: [],
         quantityIndex: quantityIndex,
-        setAbbreviation: "bsc",
+        setAbbreviation: 'bsc',
         cardIndex: cardIndex,
-        setQuantity: setQuantity
+        setQuantity: setQuantity,
     }
 
     if (cardData.orbs == null || cardData.orbs.length == 0) {
@@ -126,14 +129,8 @@ function generateRenderCardData(cardData: CardData, quantityIndex: number, cardI
         }
     }
 
-    for (
-        let cardTextIndex = 0;
-        cardTextIndex < cardData.textBlocks.length;
-        cardTextIndex++
-    ) {
-        renderCardData.htmlTexts.push(
-            textToHtmlText(cardData.textBlocks[cardTextIndex])
-        )
+    for (let cardTextIndex = 0; cardTextIndex < cardData.textBlocks.length; cardTextIndex++) {
+        renderCardData.htmlTexts.push(textToHtmlText(cardData.textBlocks[cardTextIndex]))
     }
 
     return renderCardData
@@ -160,7 +157,7 @@ function textToHtmlText(text: string): string {
     }
 
     let result: string = ''
-    let parseStart: number = stringToParse.indexOf('<')
+    let parseStart: number = stringToParse.indexOf(startCustomBracket)
 
     if (parseStart === -1) {
         return text
@@ -168,13 +165,17 @@ function textToHtmlText(text: string): string {
 
     while (parseStart != -1) {
         result = result + stringToParse.substring(0, parseStart)
-        const parseEnd: number = stringToParse.indexOf('>')
+        const parseEnd: number = stringToParse.indexOf(endCustomBracket)
 
-        const parseIconValue = stringToParse.substring(parseStart + 1, parseEnd)
+        const parseIconValue = stringToParse.substring(parseStart + startCustomBracket.length, parseEnd)
         result = result + parseIcon(parseIconValue)
 
-        stringToParse = stringToParse.substring(parseEnd + 1)
-        parseStart = stringToParse.indexOf('<')
+        stringToParse = stringToParse.substring(parseEnd + endCustomBracket.length)
+        parseStart = stringToParse.indexOf(startCustomBracket)
+        
+        // if (parseStart != -1) {
+        //     parseStart += '&lt;'.length
+        // }
     }
 
     return result

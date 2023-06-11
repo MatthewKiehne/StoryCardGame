@@ -2,8 +2,8 @@ import { Ability } from "./Ability";
 import { NamedData } from "../NamedData";
 
 interface StatBlock extends NamedData {
-    traits: string[],
-    behavior: string[],
+    traits: string,
+    behaviors: string[],
     abilities: Ability[],
     woundSlots: string[]
 }

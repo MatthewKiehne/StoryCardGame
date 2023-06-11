@@ -1,0 +1,1 @@
+[{"name":"Guard","traits":"Movement: 3, Dodge: 1","behaviors":["If the Guard is not adjacent to an enemy, It moves towards the closest enemy","Otherwise, it will slash"],"abilities":[],"woundSlots":["Deflect 2","Attack: 1","Movement 2","Dodge 1"]}]
