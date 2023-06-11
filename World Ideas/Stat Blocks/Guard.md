@@ -7,6 +7,9 @@
 	* Slash
 		* Name: Slash
 		* Description: make a melee slashing attack against 
+	* Attack
+		* Name: second
+		* Description: the second thing
 * Wound Slots:
 	* Deflect 2
 	* Attack: 1

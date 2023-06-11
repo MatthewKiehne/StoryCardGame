@@ -7,9 +7,6 @@ import { AbilityParser } from './AbilityParser'
 const { JSDOM } = jsdom
 
 export class StatBlockParser implements HtmlParser<StatBlock> {
-    private readonly tempOutputStatBlockDirectory = './tempStatBlockOutput'
-    private readonly cardBasePath = './World Ideas/Stat Blocks'
-
     async ParseFromString(htmlString: string): Promise<StatBlock> {
         const dom = new JSDOM(htmlString)
         const result: StatBlock = {
@@ -37,7 +34,7 @@ export class StatBlockParser implements HtmlParser<StatBlock> {
             } else if (context.startsWith('Wound Slots:')) {
                 result.woundSlots = getChildrenAsStrings(firstList.childNodes[c])
             } else if (context.startsWith('Abilities:')) {
-                // result.abilities = await parseChildren(firstList.childNodes[c], new AbilityParser());
+                result.abilities = await parseChildren(firstList.childNodes[c], new AbilityParser())
             }
         }
 

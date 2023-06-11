@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Cards/Items/Heavy Armor (Card).md",
+                "file": "Stat Blocks/Guard.md",
                 "mode": "source",
                 "source": false
               }
@@ -109,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Cards/Items/Heavy Armor (Card).md",
+                "file": "Stat Blocks/Guard.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +126,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Cards/Items/Heavy Armor (Card).md",
+                "file": "Stat Blocks/Guard.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -149,7 +149,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Cards/Items/Heavy Armor (Card).md"
+                "file": "Stat Blocks/Guard.md"
               }
             }
           }
@@ -172,8 +172,8 @@
   },
   "active": "e2c355a8f4b2fc0a",
   "lastOpenFiles": [
-    "Stat Blocks/Guard.md",
     "Cards/Items/Heavy Armor (Card).md",
+    "Stat Blocks/Guard.md",
     "MockUps/cardMockUp.png",
     "MockUps",
     "BattleMaps/Descriptions/Guarded Cave.md",
