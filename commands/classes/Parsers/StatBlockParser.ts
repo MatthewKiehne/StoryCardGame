@@ -1,5 +1,4 @@
 import { HtmlParser } from '../../interfaces/HtmlParser'
-import { MarkdownToHtml } from '../Utils/MarkdownToHtml';
 import * as jsdom from "jsdom";
 import * as fs from 'fs';
 import { StatBlock } from '../../interfaces/ObsidianData/StatBlock';

@@ -1,7 +1,7 @@
 import { HtmlParser } from '../../interfaces/HtmlParser'
 import { CardData } from '../../interfaces/ObsidianData/Card'
 import * as jsdom from "jsdom";
-import { getChildrenAsStrings } from '../Utils/HtmlToData';
+import { getChildrenAsStrings } from './ParseUtils';
 
 const { JSDOM } = jsdom;
 
@@ -12,7 +12,9 @@ export class CardParser implements HtmlParser<CardData> {
         const result: CardData = {
             name: "",
             textBlocks: [],
-            orbs: null
+            orbs: null,
+            cost: "",
+            tags: ""
         };
 
         const firstList = dom.window.document.querySelector("ul");
@@ -26,11 +28,18 @@ export class CardParser implements HtmlParser<CardData> {
                 continue;
 
             if (context.startsWith("Title:")) {
-                const data: string = context.substring("Title:".length).trim();
-                result.name = data;
+                result.name = context.substring("Title:".length).trim();;
             }
             else if (context.startsWith("Text:")) {
                 result.textBlocks = getChildrenAsStrings(firstList.childNodes[c]);
+            } 
+            else if (context.startsWith("Tags:")) 
+            {
+                result.tags = context.substring("Tags:".length).trim();;
+            } 
+            else if (context.startsWith("Cost:")) 
+            {
+                result.cost = context.substring("Cost:".length).trim();;
             }
 
         }

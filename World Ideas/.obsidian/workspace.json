@@ -4,6 +4,24 @@
     "type": "split",
     "children": [
       {
+        "id": "8aac879b3f67ccb9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "e2c355a8f4b2fc0a",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Cards/Items/Heavy Armor (Card).md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ]
+      },
+      {
         "id": "b2cdbd3cb126760e",
         "type": "tabs",
         "children": [
@@ -11,11 +29,9 @@
             "id": "c32be4c681b8caf9",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "Stat Blocks/Guard.md",
-                "mode": "source",
-                "source": false
+                "file": "MockUps/cardMockUp.png"
               }
             }
           }
@@ -93,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Stat Blocks/Guard.md",
+                "file": "Cards/Items/Heavy Armor (Card).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -110,7 +126,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Stat Blocks/Guard.md",
+                "file": "Cards/Items/Heavy Armor (Card).md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -133,7 +149,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Stat Blocks/Guard.md"
+                "file": "Cards/Items/Heavy Armor (Card).md"
               }
             }
           }
@@ -154,9 +170,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "c32be4c681b8caf9",
+  "active": "e2c355a8f4b2fc0a",
   "lastOpenFiles": [
+    "MockUps/cardMockUp.png",
     "Cards/Items/Heavy Armor (Card).md",
+    "MockUps",
     "Stat Blocks/Guard.md",
     "BattleMaps/Descriptions/Guarded Cave.md",
     "Stat Blocks",
@@ -190,9 +208,7 @@
     "World Notes/WorldBuildingNotes.md",
     "Characters/Untitled.md",
     "Characters/Folk",
-    "Templates",
     "Locations/Cosmic/Ezari (Physical Realm).md",
-    "Untitled 1.md",
-    "Locations/Cosmic/Soul Domain.md"
+    "Untitled 1.md"
   ]
 }

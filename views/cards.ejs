@@ -61,12 +61,19 @@
             <div class="cardName">
               <%- card.name %>
             </div>
+            <div class="cardTags">
+              <%- card.tags %>
+            </div>
             <hr class="taperedLine">
             <% for(let htmlTextIndex = 0; htmlTextIndex < card.htmlTexts.length; htmlTextIndex++) { %>
-              <div>
+              <div class="cardText">
                 <%- card.htmlTexts[htmlTextIndex] %>
               </div>
             <% } %>
+            
+            <div class="cardCost">
+              <%- card.cost %>
+            </div>
           </div>
         </div>
       <% } %>

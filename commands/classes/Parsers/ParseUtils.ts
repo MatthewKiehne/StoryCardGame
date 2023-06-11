@@ -14,8 +14,7 @@ function getChildrenAsStrings(node: ChildNode): string[] {
     return result;
 }
 
-async function parseChildren<T>( node: ChildNode, htmlParser: HtmlParser<T>): Promise<T[]>
-{
+async function parseChildren<T>(node: ChildNode, htmlParser: HtmlParser<T>): Promise<T[]> {
     const result: T[] = [];
     const nodes = node.childNodes;
 

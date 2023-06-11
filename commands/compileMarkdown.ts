@@ -2,16 +2,23 @@
 import * as fs from 'fs';
 import { CardData } from './interfaces/ObsidianData/Card';
 import { CardParser } from './classes/Parsers/CardParser';
-import { parseDirectoryToData } from './classes/Utils/DirectoryToData';
+import { DirectoryToData } from './classes/Utils/DirectoryToData';
 
 
 async function compileAll() {
 
     const cardDirectory = './World Ideas/Cards';
-    const statBlockDirectory = '../World Ideas/Stat Blocks';
-    const BattleMapDirectory = '../World Ideas/BattleMaps';
+    const cardOutputFile = './data/cardData.json';
+    const cardIndexOutput = './data/cardToIndex.json';
 
-    await parseDirectoryToData(cardDirectory, "./data/cardToIndex.json", new CardParser());
+    const statBlockDirectory = './World Ideas/Stat Blocks';
+    const statBlockOutputFile = "./data/cardToIndex.json";
+    const BattleMapDirectory = './World Ideas/BattleMaps';
+
+    const markdownParser: DirectoryToData = new DirectoryToData();
+
+    await markdownParser.parse(cardDirectory, cardOutputFile, new CardParser());
+    // await markdownParser.parse(cardDirectory, "./data/cardToIndex.json", new CardParser());
 
     // const cardParser: CardParser = new CardParser();
     // await createNewFile("./data/cardData.json", JSON.stringify(cardData));

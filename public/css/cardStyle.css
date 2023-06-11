@@ -126,7 +126,30 @@ p{
 .cardName{
     text-align: center;
     font-weight: bold;
-    margin-top: 5px;
+    margin-top: 3px;
+    font-size: 1rem;
+}
+
+.cardTags{
+    text-align: center;
+    font-style: italic;
+    margin-top: 3px;
+    font-size: .90rem;
+}
+
+.cardText{
+    text-align: left;
+    font-size: .85rem;
+}
+
+.cardCost{
+    text-align: right;
+    font-size: 1rem;
+    position: absolute;
+    bottom: -22px;
+    right: -23px;
+    width: 50px;
+    height: 18px;
 }
 
 hr.taperedLine {
@@ -134,4 +157,5 @@ hr.taperedLine {
     height: 1px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
     margin-top: 0px;
+    margin-bottom: 3px;
 }

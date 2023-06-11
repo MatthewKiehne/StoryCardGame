@@ -1,8 +1,8 @@
 import express from 'express'
-import * as cardList from './data/cardData.json';
 import { CardData } from './commands/interfaces/ObsidianData/Card';
 import { RenderCardData } from './commands/interfaces/DisplayData/RenderCardData';
 import { compileAll } from './commands/compileMarkdown';
+import * as fs from 'fs';
 
 const app = express();
 
@@ -14,6 +14,13 @@ app.get('/', (req, res) => {
     let pageIndex: number = 0;
     let pages: RenderCardData[][] = [];
 
+    const text: string = fs.readFileSync('./data/cardData.json', 'utf-8');
+    const cardList: CardData[] = JSON.parse(text);
+
+    for (let i = 0; i < cardList.length; i++) {
+        console.log(i);
+    }
+
     while (pageSize * pageIndex < cardList.length) {
         let pageCardCount = pageSize
         if ((pageSize * pageIndex) + pageSize > cardList.length) {
@@ -24,11 +31,13 @@ app.get('/', (req, res) => {
         for (let i = 0; i < pageCardCount; i++) {
             const cardData: CardData = cardList[(pageSize * pageIndex) + i];
 
-            const renderCardData: RenderCardData = 
+            const renderCardData: RenderCardData =
             {
                 name: cardData.name,
                 orbs: cardData.orbs,
                 textBlocks: cardData.textBlocks,
+                tags: cardData.tags,
+                cost: cardData.cost,
                 orbLinks: [],
                 htmlTexts: []
             };
@@ -55,7 +64,7 @@ app.get('/', (req, res) => {
         pageIndex++;
     }
 
-    res.render('home', { data: pages });
+    res.render('cards', { data: pages });
 });
 
 app.get('/orbCards', (req, res) => {
@@ -110,7 +119,7 @@ app.listen(3000, async () => {
     console.log('Server started on port 3000');
 });
 
-function intToColorLink(value: number) : string {
+function intToColorLink(value: number): string {
     if (value === 0) {
         return "pictures/CircleBlue.png"
     }
@@ -142,7 +151,7 @@ function textToHtmlText(text: string): string {
 
     while (parseStart != -1) {
         result = result + stringToParse.substring(0, parseStart);
-        const parseEnd: number= stringToParse.indexOf(">");
+        const parseEnd: number = stringToParse.indexOf(">");
 
         const parseIconValue = stringToParse.substring(parseStart + 1, parseEnd);
         result = result + parseIcon(parseIconValue);
