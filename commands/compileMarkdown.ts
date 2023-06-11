@@ -1,48 +1,80 @@
-
-import * as fs from 'fs';
-import { CardData } from './interfaces/ObsidianData/Card';
-import { CardParser } from './classes/Parsers/CardParser';
-import { DirectoryToData } from './classes/Utils/DirectoryToData';
-import { StatBlockParser } from './classes/Parsers/StatBlockParser';
-
+import * as fs from 'fs'
+import { CardParser } from './classes/Parsers/CardParser'
+import { DirectoryToData } from './classes/Utils/DirectoryToData'
+import { StatBlockParser } from './classes/Parsers/StatBlockParser'
+import { HtmlParser } from './interfaces/HtmlParser'
 
 async function compileAll() {
-
     const cardDirectory = './World Ideas/Cards';
-    const cardOutputFile = './data/cardData.json';
-    const cardIndexOutput = './data/cardToIndex.json';
+    await createFiles(cardDirectory, 'card', new CardParser());
 
-    const statBlockDirectory = './World Ideas/Stat Blocks';
-    const statBlockOutputFile = "./data/statBlock.json";
-    const BattleMapDirectory = './World Ideas/BattleMaps';
-
-    const markdownParser: DirectoryToData = new DirectoryToData();
-
-    await markdownParser.parse(cardDirectory, cardOutputFile, new CardParser());
-    await markdownParser.parse(statBlockDirectory, statBlockOutputFile, new StatBlockParser());
-
-    // const cardParser: CardParser = new CardParser();
-    // await createNewFile("./data/cardData.json", JSON.stringify(cardData));
-
-    // const cardToIndexData: Map<string, number> = cardNameToIndex(cardData);
-    // await createNewFile(, JSON.stringify(cardToIndexData));
+    const statBlockDirectory = './World Ideas/Stat Blocks'
+    await createFiles(statBlockDirectory, 'statBlock', new StatBlockParser())
 }
 
-function cardNameToIndex(cardData: CardData[]): Map<string, number> {
-    const result = new Map<string, number>();
+async function createFiles<T>(sourceDirectory: string, dataName: string, htmlParser: HtmlParser<T>) {
+    const dataDirectory = './data/' + dataName
 
-    for (let i = 0; i < cardData.length; i++) {
-        result.set(cardData[i].name, i + 1);
+    const dataFile = './data/' + dataName + '/' + dataName + 'Data.json'
+    const toIndexFile = './data/' + dataName + '/' + dataName + 'ToIndex.json'
+    const fromIndexFile = './data/' + dataName + '/' + dataName + 'FromIndex.json'
+    const fromNameFile = './data/' + dataName + '/' + dataName + 'FromName.json'
+
+    if (!fs.existsSync(dataDirectory)) {
+        fs.mkdirSync(dataDirectory)
     }
 
-    return result;
+    const markdownParser: DirectoryToData = new DirectoryToData()
+    await markdownParser.parse(sourceDirectory, dataFile, htmlParser)
+
+    await createFromIndexData(dataFile, fromIndexFile)
+    await createToIndexData(dataFile, toIndexFile)
+    await createFromNameData(dataFile, fromNameFile)
 }
 
-async function createNewFile(path: string, data: any) {
-    if ((await fs).existsSync(path)) {
-        fs.rmSync(path, { recursive: true, force: true });
+async function createFromIndexData(inputFile: string, outputFile: string) {
+    const text: string = fs.readFileSync(inputFile, 'utf-8')
+    const json: any[] = JSON.parse(text)
+
+    const data: any = {}
+    for (let i = 0; i < json.length; i++) {
+        data[i] = json[i]
     }
-    await fs.writeFileSync(path, data);
+
+    if ((await fs).existsSync(outputFile)) {
+        fs.rmSync(outputFile, { recursive: true, force: true })
+    }
+    await fs.writeFileSync(outputFile, JSON.stringify(data))
+}
+
+async function createToIndexData(inputFile: string, outputFile: string) {
+    const text: string = fs.readFileSync(inputFile, 'utf-8')
+    const json: any[] = JSON.parse(text)
+
+    const data: any = {}
+    for (let i = 0; i < json.length; i++) {
+        data[json[i]['name']] = i
+    }
+
+    if ((await fs).existsSync(outputFile)) {
+        fs.rmSync(outputFile, { recursive: true, force: true })
+    }
+    await fs.writeFileSync(outputFile, JSON.stringify(data))
+}
+
+async function createFromNameData(inputFile: string, outputFile: string) {
+    const text: string = fs.readFileSync(inputFile, 'utf-8')
+    const json: any[] = JSON.parse(text)
+
+    const data: any = {}
+    for (let i = 0; i < json.length; i++) {
+        data[json[i]['name']] = json[i]
+    }
+
+    if ((await fs).existsSync(outputFile)) {
+        fs.rmSync(outputFile, { recursive: true, force: true })
+    }
+    await fs.writeFileSync(outputFile, JSON.stringify(data))
 }
 
 export { compileAll }
