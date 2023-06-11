@@ -3,6 +3,7 @@ import { CardParser } from './classes/Parsers/CardParser'
 import { DirectoryToData } from './classes/Utils/DirectoryToData'
 import { StatBlockParser } from './classes/Parsers/StatBlockParser'
 import { HtmlParser } from './interfaces/HtmlParser'
+import { BattleMapParser } from './classes/Parsers/BattleMapParser'
 
 async function compileAll() {
     const cardDirectory = './World Ideas/Cards';
@@ -10,6 +11,9 @@ async function compileAll() {
 
     const statBlockDirectory = './World Ideas/Stat Blocks'
     await createFiles(statBlockDirectory, 'statBlock', new StatBlockParser())
+
+    const battleMapDirectory = './World Ideas/BattleMaps'
+    await createFiles(battleMapDirectory, 'battleMaps', new BattleMapParser())
 }
 
 async function createFiles<T>(sourceDirectory: string, dataName: string, htmlParser: HtmlParser<T>) {

@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Stat Blocks/Guard.md",
+                "file": "BattleMaps/Descriptions/Guarded Cave.md",
                 "mode": "source",
                 "source": false
               }
@@ -109,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Stat Blocks/Guard.md",
+                "file": "BattleMaps/Descriptions/Guarded Cave.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +126,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Stat Blocks/Guard.md",
+                "file": "BattleMaps/Descriptions/Guarded Cave.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -149,7 +149,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Stat Blocks/Guard.md"
+                "file": "BattleMaps/Descriptions/Guarded Cave.md"
               }
             }
           }
@@ -172,9 +172,9 @@
   },
   "active": "e2c355a8f4b2fc0a",
   "lastOpenFiles": [
+    "Stat Blocks/Guard.md",
     "statBlockLookUp.json",
     "Cards/Items/Heavy Armor (Card).md",
-    "Stat Blocks/Guard.md",
     "MockUps/cardMockUp.png",
     "MockUps",
     "BattleMaps/Descriptions/Guarded Cave.md",
@@ -208,7 +208,6 @@
     "Locations/Continent",
     "World Notes/WorldBuildingNotes.md",
     "Characters/Untitled.md",
-    "Characters/Folk",
     "Locations/Cosmic/Ezari (Physical Realm).md",
     "Untitled 1.md"
   ]
