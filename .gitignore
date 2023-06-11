@@ -131,3 +131,6 @@ dist
 
 # transpile output
 out/
+
+# output file
+data/
