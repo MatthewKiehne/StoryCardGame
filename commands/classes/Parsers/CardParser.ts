@@ -14,7 +14,9 @@ export class CardParser implements HtmlParser<CardData> {
             textBlocks: [],
             orbs: null,
             cost: "",
-            tags: ""
+            tags: "",
+            rarity: "C",
+            quantity: 1
         };
 
         const firstList = dom.window.document.querySelector("ul");
@@ -40,6 +42,14 @@ export class CardParser implements HtmlParser<CardData> {
             else if (context.startsWith("Cost:")) 
             {
                 result.cost = context.substring("Cost:".length).trim();;
+            }
+            else if (context.startsWith("Rarity:")) 
+            {
+                result.rarity = context.substring("Rarity:".length).trim();;
+            }
+            else if (context.startsWith("Quantity:")) 
+            {
+                result.quantity = parseInt(context.substring("Quantity:".length).trim());
             }
 
         }

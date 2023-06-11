@@ -152,6 +152,26 @@ p{
     height: 18px;
 }
 
+.cardRarity{
+    text-align: left;
+    font-size: 1rem;
+    position: absolute;
+    bottom: -22px;
+    left: -23px;
+    width: 50px;
+    height: 18px;
+}
+
+.cardQuantity{
+    text-align: left;
+    font-size: .6rem;
+    position: absolute;
+    bottom: -22px;
+    right: -2px;
+    width: 70px;
+    height: 10px;
+}
+
 hr.taperedLine {
     border: 0;
     height: 1px;
