@@ -121,16 +121,10 @@ app.get('/battleMaps', (req, res) => {
         data.push(battleMapConverter.convert(battleMaps[i], {}));
     }
 
-    res.render('backs', { data: data })
+    res.render('battleMaps', { data: data })
 })
 
 app.listen(3000, async () => {
     await compileAll()
     console.log('Server started on port 3000')
 })
-
-
-
-
-
-

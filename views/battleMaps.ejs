@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="css/pageStyle.css" type="text/css" />
+  <link rel="stylesheet" href="css/customFont.css" type="text/css" />
+  <link rel="stylesheet" href="css/battleMapStyle.css" type="text/css" />
+</head>
+
+<body>
+  <% for(let b = 0; b < data.length; b++){ %>
+  <% const battleMap = data[b]; %>
+  <div class="page twoColumns">
+    
+    <h1> <%- battleMap.name %></h1>
+    <p> <%- battleMap.behavior  %></p>
+    
+    <% for(let s = 0; s < battleMap.renderStatBlocks.length; s++){%>
+    <% const statBlock = battleMap.renderStatBlocks[s]; %>
+    <div class="statBlockBox">
+      <div class="statBlockName"><%- statBlock.name %></div>
+      <hr class="taperedLine">
+      <div>
+        <% for(let b = 0; b < statBlock.behaviors.length; b++){ %>
+        <div>
+          <%- statBlock.behaviors[b]  %>
+        </div>
+        <% } %>
+      </div>
+
+      <% for(let a = 0; a < statBlock.abilities.length; a++) {%>
+      <% const ability =  statBlock.abilities[a];%>
+      <div>
+        <div><%- ability.name  %></div>
+        <div><%- ability.description  %></div>
+      </div>
+      <% } %>
+
+      <hr class="taperedLine">
+      <div><%- statBlock.traits %></div>
+      <div>
+        <% for(let q = 0; q < statBlock.quantity; q++){ %>
+        <div class="statBlockWoundGroup">
+          <% for(let w = 0; w < statBlock.woundSlots.length; w++){ %>
+            <div class="statBlockWound">
+                <%-  statBlock.woundSlots[w] %>
+            </div>
+          <% } %>
+        </div>
+        <% } %>
+      </div>
+    </div>
+    <% } %>
+  </div>
+  <div class="page">
+    <img class="battleMap" src="<%- battleMap.url %>" alt="">
+  </div>
+  <% } %>
+</body>
+
+</html>
