@@ -21,18 +21,19 @@
       <div class="statBlockName"><%- statBlock.name %></div>
       <hr class="taperedLine">
       <div>
+        <span>Behavior</span>
         <% for(let b = 0; b < statBlock.behaviors.length; b++){ %>
-        <div>
+        <div class="statBlockSubText">
           <%- statBlock.behaviors[b]  %>
         </div>
         <% } %>
       </div>
-
+      <hr class="taperedLine">
+      <span>Abilities</span>
       <% for(let a = 0; a < statBlock.abilities.length; a++) {%>
       <% const ability =  statBlock.abilities[a];%>
-      <div>
-        <div><%- ability.name  %></div>
-        <div><%- ability.description  %></div>
+      <div class="statBlockSubText">
+        <div> <strong><%- ability.name  %>:</strong> <%- ability.description  %></div>
       </div>
       <% } %>
 

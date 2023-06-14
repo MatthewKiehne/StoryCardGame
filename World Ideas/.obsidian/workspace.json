@@ -18,24 +18,21 @@
                 "source": false
               }
             }
-          }
-        ]
-      },
-      {
-        "id": "b2cdbd3cb126760e",
-        "type": "tabs",
-        "children": [
+          },
           {
-            "id": "c32be4c681b8caf9",
+            "id": "8b7e0c4501d4feae",
             "type": "leaf",
             "state": {
-              "type": "image",
+              "type": "markdown",
               "state": {
-                "file": "MockUps/cardMockUp.png"
+                "file": "Events/Testing.md",
+                "mode": "source",
+                "source": false
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -93,7 +90,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 341.5
+    "width": 247.5
   },
   "right": {
     "id": "18de6b35b8958e80",
@@ -109,7 +106,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "BattleMaps/Descriptions/Guarded Cave.md",
+                "file": "Events/Testing.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -126,7 +123,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "BattleMaps/Descriptions/Guarded Cave.md",
+                "file": "Events/Testing.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -149,7 +146,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "BattleMaps/Descriptions/Guarded Cave.md"
+                "file": "Events/Testing.md"
               }
             }
           }
@@ -170,23 +167,24 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "e2c355a8f4b2fc0a",
+  "active": "8b7e0c4501d4feae",
   "lastOpenFiles": [
+    "Arcs/Obsidian Quest.md",
+    "Events/Testing.md",
+    "Random Ideas.md",
     "Stat Blocks/Guard.md",
+    "BattleMaps/Descriptions/Guarded Cave.md",
     "statBlockLookUp.json",
     "Cards/Items/Heavy Armor (Card).md",
     "MockUps/cardMockUp.png",
     "MockUps",
-    "BattleMaps/Descriptions/Guarded Cave.md",
     "Stat Blocks",
-    "Events/Random Ideas.md",
     "BattleMaps/Descriptions",
     "BattleMaps/Maps",
     "BattleMaps",
     "Cards/Items/output.html",
-    "Events/Arcs/Obsidian Quest.md",
     "Cards/Items",
-    "Events/Arcs/output.html",
+    "Arcs/output.html",
     "Characters/Folk/Rogerius Fabricius.md",
     "Characters/Champions/Unyielding.md",
     "Characters/Champions/Unknowing.md",

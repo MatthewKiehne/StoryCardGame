@@ -12,11 +12,17 @@
     border-style: solid;
     border-color: gray;
     padding: 5px;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 
 .statBlockName{
     font-size: 1.5rem;
     font-weight: bold;
+}
+
+.statBlockSubText{
+    font-size: .8rem;
 }
 
 .statBlockWoundGroup{
