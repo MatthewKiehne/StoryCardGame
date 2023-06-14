@@ -4,12 +4,13 @@ import { RenderCardData } from './commands/interfaces/DisplayData/RenderCardData
 import { compileAll } from './commands/compileMarkdown'
 import * as fs from 'fs'
 import { CardConverter } from './commands/classes/Converters/CardConverter'
-import { StatBlock } from './commands/interfaces/ObsidianData/StatBlock'
-import { StatBlockConverter } from './commands/classes/Converters/StatBlockConverter'
-import { RenderStatBlock } from './commands/interfaces/DisplayData/RenderStatBlock'
 import { BattleMapConverter } from './commands/classes/Converters/BattleMapConverter'
 import { BattleMap } from './commands/interfaces/ObsidianData/BattleMap'
 import { RenderBattleMap } from './commands/interfaces/DisplayData/RenderBattleMap'
+import { StoryArc } from './commands/interfaces/ObsidianData/StoryArc'
+import { StoryBeat } from './commands/interfaces/ObsidianData/StoryBeat'
+import { EventBeatConverter } from './commands/classes/Converters/EventConverter'
+import { RenderEventBeat } from './commands/interfaces/DisplayData/RenderEventBeat'
 const app = express()
 
 app.set('view engine', 'ejs')
@@ -20,11 +21,11 @@ app.get('/', (req, res) => {
     let pageIndex: number = 0
     let pages: RenderCardData[][] = []
 
-    const text: string = fs.readFileSync('./data/card/cardData.json', 'utf-8');
-    let cardList: CardData[] = JSON.parse(text);
-    cardList = cardList.sort((a, b) => a.name.localeCompare(b.name));
+    const text: string = fs.readFileSync('./data/card/cardData.json', 'utf-8')
+    let cardList: CardData[] = JSON.parse(text)
+    cardList = cardList.sort((a, b) => a.name.localeCompare(b.name))
 
-    const cardConverter: CardConverter = new CardConverter();
+    const cardConverter: CardConverter = new CardConverter()
 
     let currentPage: RenderCardData[] = []
     for (let c = 0; c < cardList.length; c++) {
@@ -42,9 +43,9 @@ app.get('/', (req, res) => {
             const additionalData = {
                 quantityIndex: q + 1,
                 cardIndex: c + 1,
-                setQuantity: cardList.length
+                setQuantity: cardList.length,
             }
-            const renderCardData: RenderCardData = cardConverter.convert(cardData, additionalData);
+            const renderCardData: RenderCardData = cardConverter.convert(cardData, additionalData)
             currentPage.push(renderCardData)
 
             if (currentPage.length == pageSize) {
@@ -108,20 +109,35 @@ app.get('/orbCards', (req, res) => {
 })
 
 app.get('/battleMaps', (req, res) => {
+    const text: string = fs.readFileSync('./data/battleMaps/battleMapsData.json', 'utf-8')
+    let battleMaps: BattleMap[] = JSON.parse(text)
+    battleMaps = battleMaps.sort((a, b) => a.name.localeCompare(b.name))
 
-    const text: string = fs.readFileSync('./data/battleMaps/battleMapsData.json', 'utf-8');
-    let battleMaps: BattleMap[] = JSON.parse(text);
-    battleMaps = battleMaps.sort((a, b) => a.name.localeCompare(b.name));
+    const battleMapConverter: BattleMapConverter = new BattleMapConverter()
 
-    const battleMapConverter: BattleMapConverter = new BattleMapConverter();
-
-    const data: RenderBattleMap[] = [];
-    for(let i = 0; i < battleMaps.length; i++)
-    {
-        data.push(battleMapConverter.convert(battleMaps[i], {}));
+    const data: RenderBattleMap[] = []
+    for (let i = 0; i < battleMaps.length; i++) {
+        data.push(battleMapConverter.convert(battleMaps[i], {}))
     }
 
     res.render('battleMaps', { data: data })
+})
+
+app.get('/events', (req, res) => {
+    const text: string = fs.readFileSync('./data/events/eventsData.json', 'utf-8')
+    const events: StoryArc[] = JSON.parse(text)
+
+    const converter: EventBeatConverter = new EventBeatConverter()
+
+    const data: RenderEventBeat[] = []
+    for (let a = 0; a < events.length; a++) {
+        for (let b = 0; b < events[a].storyBeats.length; b++) {
+            const renderData: RenderEventBeat  = converter.convert(events[a].storyBeats[b], { storyArcName: events[a].name })
+            data[renderData.index] = renderData;
+        }
+    }
+
+    res.render('events', { data: data })
 })
 
 app.listen(3000, async () => {

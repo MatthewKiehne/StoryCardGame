@@ -24,15 +24,20 @@ async function parseChildren<T>(node: ChildNode, htmlParser: HtmlParser<T>): Pro
     const result: T[] = []
 
     const e: HTMLElement = node as HTMLElement
-    const nodes = e.querySelectorAll('ul')
+    const nodes = e.querySelector('ul')?.childNodes
 
     // start at one because the we do not want the parent list being parsed
-    for (let i = 1; i < nodes.length; i++) {
-        const lineData: string | null = nodes[i].textContent
-        if (lineData != "" && lineData != undefined && lineData !== '\n') {
-            result.push(await htmlParser.ParseFromString(nodes[i].outerHTML))
+    if (nodes != undefined) {
+        for (let i = 0; i < nodes.length; i++) {
+            const lineData: string | null = nodes[i].textContent
+            if (lineData != "" && lineData != undefined && lineData !== '\n') {
+                const node = nodes[i] as HTMLElement;
+                result.push(await htmlParser.ParseFromString(node.outerHTML))
+            }
         }
     }
+    
+    
 
     return result
 }

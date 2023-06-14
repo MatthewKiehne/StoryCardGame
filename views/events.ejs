@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="css/pageStyle.css" type="text/css">
+  <link rel="stylesheet" href="css/eventStyle.css" type="text/css">
+</head>
+
+<body class="horizontal">
+  <% for(let p = 1; p < data.length; p++){ %>
+    <div>
+        <%- p %> <%- data[p].name %>
+    </div>
+    <div>
+        <%- data[p].text %>
+    </div>
+  <% } %>
+</body>
+
+</html>

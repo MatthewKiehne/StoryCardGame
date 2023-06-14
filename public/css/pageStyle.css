@@ -7,9 +7,31 @@
     box-sizing: border-box;
 }
   
-:root{
+body.standard{
     --page-width: 8.5in;
     --page-height: 11in;
+    --main-width: 6.4in;
+    --sidebar-width: calc(var(--page-width) - var(--main-width));
+    --decorator-horizontal-margin: 0.2in;
+  
+    --sidebar-horizontal-padding: 0.2in;
+  
+    /* XXX: using px for very good precision control */
+    --decorator-outer-offset-top: 10px;
+    --decorator-outer-offset-left: -5.5px;
+    --decorator-border-width: 1px;
+    --decorator-outer-dim: 9px;
+    --decorator-border: 1px solid #ccc;
+  
+    --row-blocks-padding-top: 5pt;
+    --date-block-width: 0.6in;
+  
+    --main-blocks-title-icon-offset-left: -19pt;
+}
+
+body.horizontal{
+    --page-width: 11in;
+    --page-height: 8.5in;
     --main-width: 6.4in;
     --sidebar-width: calc(var(--page-width) - var(--main-width));
     --decorator-horizontal-margin: 0.2in;

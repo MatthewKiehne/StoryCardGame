@@ -4,19 +4,71 @@ import { DirectoryToData } from './classes/Utils/DirectoryToData'
 import { StatBlockParser } from './classes/Parsers/StatBlockParser'
 import { HtmlParser } from './interfaces/HtmlParser'
 import { BattleMapParser } from './classes/Parsers/BattleMapParser'
+import { StoryArcParser } from './classes/Parsers/StoryArcParser'
+import { StoryBeat } from './interfaces/ObsidianData/StoryBeat'
+import { StoryArc } from './interfaces/ObsidianData/StoryArc'
 
 async function compileAll() {
-    const cardDirectory = './World Ideas/Cards';
-    await createFiles(cardDirectory, 'card', new CardParser());
+    const cardDirectory = './World Ideas/Cards'
+    await createFiles(cardDirectory, 'card', new CardParser())
 
     const statBlockDirectory = './World Ideas/Stat Blocks'
     await createFiles(statBlockDirectory, 'statBlock', new StatBlockParser())
 
     const battleMapDirectory = './World Ideas/BattleMaps'
     await createFiles(battleMapDirectory, 'battleMaps', new BattleMapParser())
+
+    const storyBeatDirectory = './World Ideas/Events'
+    await createFilesWithCallBack(storyBeatDirectory, 'events', new StoryArcParser(), randomizeStoryBeats)
+}
+
+async function randomizeStoryBeats(filePath: string) {
+    const text: string = fs.readFileSync(filePath, 'utf-8')
+    const storyArcs: StoryArc[] = JSON.parse(text)
+
+    const storyBeatPosition: number[] = []
+    for (let a = 0; a < storyArcs.length; a++) {
+        for (let b = 0; b < storyArcs[a].storyBeats.length; b++) {
+            storyBeatPosition.push(storyBeatPosition.length + 1)
+        }
+    }
+
+    for (let i = 0; i < storyBeatPosition.length * 7; i++) {
+        const first = getRandomInt(storyBeatPosition.length)
+        const second = getRandomInt(storyBeatPosition.length)
+
+        const tmp = storyBeatPosition[first]
+        storyBeatPosition[first] = storyBeatPosition[second]
+        storyBeatPosition[second] = tmp
+    }
+
+    let positionIndex = 0
+    for (let a = 0; a < storyArcs.length; a++) {
+        storyArcs[a].startingIndex = storyBeatPosition[positionIndex]
+
+        for (let b = 0; b < storyArcs[a].storyBeats.length; b++) {
+            storyArcs[a].storyBeats[b].index = storyBeatPosition[positionIndex]
+            storyArcs[a].storyBeats[b].name = storyArcs[a].name + ', Part ' + (b + 1)
+
+            positionIndex++
+        }
+    }
+
+    if ((await fs).existsSync(filePath)) {
+        fs.rmSync(filePath, { recursive: true, force: true })
+    }
+    await fs.writeFileSync(filePath, JSON.stringify(storyArcs))
+}
+
+function getRandomInt(max: number) {
+    return Math.floor(Math.random() * max)
 }
 
 async function createFiles<T>(sourceDirectory: string, dataName: string, htmlParser: HtmlParser<T>) {
+    return await createFilesWithCallBack(sourceDirectory, dataName, htmlParser, async (s: string) => {})
+}
+
+async function createFilesWithCallBack<T>(sourceDirectory: string, dataName: string, htmlParser: HtmlParser<T>, afterDataGenerate: (filePath: string) => Promise<void>) {
     const dataDirectory = './data/' + dataName
 
     const dataFile = './data/' + dataName + '/' + dataName + 'Data.json'
@@ -30,6 +82,10 @@ async function createFiles<T>(sourceDirectory: string, dataName: string, htmlPar
 
     const markdownParser: DirectoryToData = new DirectoryToData()
     await markdownParser.parse(sourceDirectory, dataFile, htmlParser)
+
+    if (afterDataGenerate != undefined) {
+        await afterDataGenerate(dataFile)
+    }
 
     await createFromIndexData(dataFile, fromIndexFile)
     await createToIndexData(dataFile, toIndexFile)

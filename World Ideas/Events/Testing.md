@@ -1,5 +1,8 @@
-* Name: Name
-* Segments:
-	* boy overhears father and mother talking down stairs
-	* boy goes to investigate
-	* trips and falls down the stairs
+* Name: test story
+* Story Beats:
+	* 1
+	* 2
+	* 3
+	* 4
+	* 5
+	* 6
