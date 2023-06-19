@@ -6,14 +6,48 @@
   <link rel="stylesheet" href="css/eventStyle.css" type="text/css">
 </head>
 
-<body class="horizontal">
-  <% for(let p = 1; p < data.length; p++){ %>
-    <div>
-        <%- p %> <%- data[p].name %>
-    </div>
-    <div>
-        <%- data[p].text %>
-    </div>
+<body>
+  <% const segmentsPerSide = 3; %>
+  <% const segmentsPerPage = segmentsPerSide * 2; %>
+  <% const segmentsPerSheet = segmentsPerPage * 2; %>
+
+  <% let sheets = data.length / segmentsPerSheet; %>
+  <% sheets = Math.floor(sheets); %>
+  <% if((data.length % segmentsPerSheet) != 0){ %>
+    <% sheets = sheets + 1; %>
+  <% } %>
+
+  <% for(let sheetIndex = 0; sheetIndex < sheets; sheetIndex++){ %>
+    <% for(let pageIndex = 0; pageIndex < 2; pageIndex++){ %>
+      <div class="page verticalSplit">
+        <% for(let sideIndex = 0; sideIndex < 2; sideIndex++){ %>
+          <div class="horizontalSplit fullSegment">
+            <% for(let segmentIndex = 0; segmentIndex < segmentsPerSide; segmentIndex++){ %>
+              <div class="fullSegment">
+                <% const sheet = (sheetIndex * segmentsPerSheet) %>
+                <% const page =  (pageIndex * segmentsPerPage) %>
+                <% const side = (sideIndex * segmentsPerSide) %>
+                <% const segment = segmentIndex; %>
+                <% const dataIndex = sheet + page + side + segment %>
+                <span>
+                  <%- sheet %> + <%- page %> + <%- side %> + <%- segment %> = <%- dataIndex %>
+                </span>
+
+                <% if(sideIndex == 0){ %>
+                  <div>
+                    Top: <%- (sheets * segmentsPerSheet) - ((((sheet + page) / (segmentsPerSide * 2)) + 1)  * segmentsPerSide) + segmentIndex %>
+                  </div>
+                <% } else { %>
+                  <div>
+                    Bottom: <%- (((sheet + page) / (segmentsPerSide * 2)) * segmentsPerSide) +  segmentIndex %>
+                  </div>
+                <% } %>
+              </div>
+            <% } %>
+          </div>
+        <% } %>
+      </div>
+    <% } %>
   <% } %>
 </body>
 
