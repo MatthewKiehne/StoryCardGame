@@ -25,7 +25,6 @@
   <% for(let sheetIndex = 0; sheetIndex < sheets; sheetIndex++){ %>
     <% for(let pageIndex = 0; pageIndex < 2; pageIndex++){ %>
       <div class="page pageGrid">
-        <% const horizontalSplit = pageIndex == 0 ? "horizontalSplitReverse" : "horizontalSplit"%>
         <% for(let sideIndex = 0; sideIndex < 2; sideIndex++){ %>
           <div class="sideGrid" style="grid-template-columns: <%- segmentColumns %>;"> 
             <% const rotation = pageIndex == 1 ? "rotate180" : "" %>

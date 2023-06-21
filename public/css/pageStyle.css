@@ -52,32 +52,3 @@ body {
     top: 0px;
     left: 0px;
 }
-
-.verticalSplit
-{
-    display: flex;
-    flex-direction: column;
-}
-
-.horizontalSplit
-{
-    display: flex;
-    flex-direction: row;
-}
-
-.horizontalSplitReverse
-{
-    display: flex;
-    flex-direction: row-reverse;
-}
-
-.horizontalSplit
-{
-    display: flex;
-    flex-direction: row;
-}
-
-.fullSegment
-{
-    flex-grow: 1;
-}
