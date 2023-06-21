@@ -140,6 +140,23 @@ app.get('/events', (req, res) => {
     res.render('events', { data: data })
 })
 
+app.get('/eventsGrid', (req, res) => {
+    const text: string = fs.readFileSync('./data/events/eventsData.json', 'utf-8')
+    const events: StoryArc[] = JSON.parse(text)
+
+    const converter: EventBeatConverter = new EventBeatConverter()
+
+    const data: RenderEventBeat[] = []
+    for (let a = 0; a < events.length; a++) {
+        for (let b = 0; b < events[a].storyBeats.length; b++) {
+            const renderData: RenderEventBeat  = converter.convert(events[a].storyBeats[b], { storyArcName: events[a].name })
+            data[renderData.index] = renderData;
+        }
+    }
+
+    res.render('eventsGrid', { data: data })
+})
+
 app.listen(3000, async () => {
 
     // await compileAll()

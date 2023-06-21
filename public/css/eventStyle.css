@@ -27,3 +27,12 @@
 .rotate180{
     transform: rotate(180deg);
 }
+
+.pageGrid{
+    display: grid;
+    grid-template-rows: 50% 50%;
+}
+
+.sideGrid {
+    display: grid;
+}

@@ -17,15 +17,20 @@
     <% sheets = sheets + 1; %>
   <% } %>
 
+  <% let segmentColumns = "" %>
+  <% for(let i = 0; i < segmentsPerSide; i++){ %>
+    <% segmentColumns += " 1fr" %>
+  <% } %>
+
   <% for(let sheetIndex = 0; sheetIndex < sheets; sheetIndex++){ %>
     <% for(let pageIndex = 0; pageIndex < 2; pageIndex++){ %>
-      <div class="page verticalSplit">
+      <div class="page pageGrid">
         <% const horizontalSplit = pageIndex == 0 ? "horizontalSplitReverse" : "horizontalSplit"%>
         <% for(let sideIndex = 0; sideIndex < 2; sideIndex++){ %>
-          <div class="fullSegment <%- horizontalSplit %>">
+          <div class="sideGrid" style="grid-template-columns: <%- segmentColumns %>;"> 
             <% const rotation = pageIndex == 1 ? "rotate180" : "" %>
             <% for(let segmentIndex = 0; segmentIndex < segmentsPerSide; segmentIndex++){ %>
-              <div class="fullSegment textArea <%- rotation %>">
+              <div class="textArea <%- rotation %>">
                 <% const sheet = (sheetIndex * segmentsPerSheet) %>
                 <% const page =  (pageIndex * segmentsPerPage) %>
                 <% const side = (sideIndex * segmentsPerSide) %>
@@ -38,10 +43,12 @@
                 <% let p = 0; %>
                 <% if(sideIndex == 0){ %>
                   <% p =  (sheets * segmentsPerSheet) - ((((sheet + page) / (segmentsPerSide * 2)) + 1)  * segmentsPerSide) + segmentIndex %>
-                  <!-- Top: <%- (sheets * segmentsPerSheet) - ((((sheet + page) / (segmentsPerSide * 2)) + 1)  * segmentsPerSide) + segmentIndex %> -->
                 <% } else { %>
                   <% p = (((sheet + page) / (segmentsPerSide * 2)) * segmentsPerSide) +  segmentIndex %>
-                  <!-- Bottom: <%- (((sheet + page) / (segmentsPerSide * 2)) * segmentsPerSide) +  segmentIndex %> -->
+                <% } %>
+
+                <% if (pageIndex == 0) { %>
+                  <% p += ((segmentsPerSide - 1) - (2 * segmentIndex)) %>
                 <% } %>
 
                 <% if(p < data.length){ %>
