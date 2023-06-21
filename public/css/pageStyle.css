@@ -65,6 +65,18 @@ body {
     flex-direction: row;
 }
 
+.horizontalSplitReverse
+{
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.horizontalSplit
+{
+    display: flex;
+    flex-direction: row;
+}
+
 .fullSegment
 {
     flex-grow: 1;

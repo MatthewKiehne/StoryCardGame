@@ -8,7 +8,8 @@ export class EventBeatConverter implements DataConverter<StoryBeat, RenderEventB
             name: data.name,
             index: data.index,
             text: data.text,
-            storyArcName: additionalData.storyArcName
+            storyArcName: additionalData.storyArcName,
+            displayText: ""
         }
         return result;
     }

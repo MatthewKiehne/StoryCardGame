@@ -29,7 +29,7 @@ async function randomizeStoryBeats(filePath: string) {
     const storyBeatPosition: number[] = []
     for (let a = 0; a < storyArcs.length; a++) {
         for (let b = 0; b < storyArcs[a].storyBeats.length; b++) {
-            storyBeatPosition.push(storyBeatPosition.length + 1)
+            storyBeatPosition.push(storyBeatPosition.length)
         }
     }
 
