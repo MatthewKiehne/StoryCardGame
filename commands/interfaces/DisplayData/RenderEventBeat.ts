@@ -2,6 +2,6 @@ import { EventBeat } from "../ObsidianData/StoryBeat";
 
 
 export interface RenderEventBeat extends EventBeat{
-    storyArcName: string,
+    eventArcName: string,
     displayText: string
 }

@@ -4,52 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "c53ae4b6a19d44ce",
+        "id": "28afe72b4aeb29e3",
         "type": "tabs",
         "children": [
           {
-            "id": "157166a1b8068c3a",
+            "id": "ef1474e6eddf19dd",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Cards/Items/Sword (card).md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "05d9e23fe75ae8f0",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Cards/Items/Heavy Armor (Card).md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "5ebbafb246dd910f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Cards/Items/Healing Potion (Card).md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "9d66b6590ba6dff0",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Cards/Items/Flaming Sword.md",
+                "file": "Events/Testing.md",
                 "mode": "source",
                 "source": false
               }
@@ -129,7 +93,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Cards/Items/Sword (card).md",
+                "file": "Events/Testing.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -146,7 +110,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Cards/Items/Sword (card).md",
+                "file": "Events/Testing.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -169,7 +133,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Cards/Items/Sword (card).md"
+                "file": "Events/Testing.md"
               }
             }
           }
@@ -190,12 +154,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "157166a1b8068c3a",
+  "active": "ef1474e6eddf19dd",
   "lastOpenFiles": [
-    "Cards/Items/Sword (card).md",
-    "Cards/Items/Heavy Armor (Card).md",
-    "Cards/Items/Healing Potion (Card).md",
     "Cards/Items/Flaming Sword.md",
+    "Cards/Items/Healing Potion (Card).md",
+    "Cards/Items/Heavy Armor (Card).md",
+    "Cards/Items/Sword (card).md",
     "BattleMaps/Descriptions/Guarded Cave.md",
     "Events/Testing.md",
     "Templates/Card Template.md",

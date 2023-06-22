@@ -3,6 +3,6 @@ import { EventBeat } from "./StoryBeat";
 
 export interface EventArc extends NamedData
 {
-    storyBeats: EventBeat[],
+    eventBeats: EventBeat[],
     startingIndex: number
 }

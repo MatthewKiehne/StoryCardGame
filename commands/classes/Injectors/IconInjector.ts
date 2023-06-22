@@ -1,4 +1,5 @@
 import { HtmlInjector } from "./HtmlInjector";
+import { InjectorContext } from "./InjectorContext";
 
 export class IconInjector implements HtmlInjector
 {
@@ -6,7 +7,7 @@ export class IconInjector implements HtmlInjector
         return "icon"
     }
 
-    inject(text: string[]): string {
+    inject(text: string[], injectorContext: InjectorContext): string {
         return this.parseIcon(text);
     }
 

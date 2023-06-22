@@ -2,6 +2,7 @@ import { RenderCardData } from '../../interfaces/DisplayData/RenderCardData'
 import { CardData } from '../../interfaces/ObsidianData/Card'
 import { HtmlInjector } from '../Injectors/HtmlInjector'
 import { IconInjector } from '../Injectors/IconInjector'
+import { InjectorContext } from '../Injectors/InjectorContext'
 import { InjectorUtils } from '../Injectors/InjectorUtils'
 import { DataConverter } from './DataConverter'
 
@@ -38,8 +39,12 @@ export class CardConverter implements DataConverter<CardData, RenderCardData> {
             new IconInjector()
         ];
 
+        const injectorContext: InjectorContext = {
+            card: renderCardData
+        }
+
         for (let cardTextIndex = 0; cardTextIndex < cardData.textBlocks.length; cardTextIndex++) {
-            const html: string = InjectorUtils.textToHtmlText(cardData.textBlocks[cardTextIndex], injectors);
+            const html: string = InjectorUtils.textToHtmlText(cardData.textBlocks[cardTextIndex], injectors, injectorContext);
             renderCardData.htmlTexts.push(html);
         }
 

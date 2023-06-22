@@ -126,12 +126,12 @@ app.get('/events', (req, res) => {
     const text: string = fs.readFileSync('./data/events/eventsData.json', 'utf-8')
     const events: EventArc[] = JSON.parse(text)
 
-    const converter: EventBeatConverter = new EventBeatConverter()
+    const converter: EventBeatConverter = new EventBeatConverter(events);
 
     const data: RenderEventBeat[] = []
     for (let a = 0; a < events.length; a++) {
-        for (let b = 0; b < events[a].storyBeats.length; b++) {
-            const renderData: RenderEventBeat  = converter.convert(events[a].storyBeats[b], { storyArcName: events[a].name })
+        for (let b = 0; b < events[a].eventBeats.length; b++) {
+            const renderData: RenderEventBeat  = converter.convert(events[a].eventBeats[b], { eventArcName: events[a].name })
             data[renderData.index] = renderData;
         }
     }

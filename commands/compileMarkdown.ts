@@ -27,7 +27,7 @@ async function randomizeStoryBeats(filePath: string) {
 
     const storyBeatPosition: number[] = []
     for (let a = 0; a < storyArcs.length; a++) {
-        for (let b = 0; b < storyArcs[a].storyBeats.length; b++) {
+        for (let b = 0; b < storyArcs[a].eventBeats.length; b++) {
             storyBeatPosition.push(storyBeatPosition.length)
         }
     }
@@ -45,9 +45,9 @@ async function randomizeStoryBeats(filePath: string) {
     for (let a = 0; a < storyArcs.length; a++) {
         storyArcs[a].startingIndex = storyBeatPosition[positionIndex]
 
-        for (let b = 0; b < storyArcs[a].storyBeats.length; b++) {
-            storyArcs[a].storyBeats[b].index = storyBeatPosition[positionIndex]
-            storyArcs[a].storyBeats[b].name = storyArcs[a].name + ', Part ' + (b + 1)
+        for (let b = 0; b < storyArcs[a].eventBeats.length; b++) {
+            storyArcs[a].eventBeats[b].index = storyBeatPosition[positionIndex]
+            storyArcs[a].eventBeats[b].name = storyArcs[a].name + ', Part ' + (b + 1)
 
             positionIndex++
         }

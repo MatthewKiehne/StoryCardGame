@@ -11,7 +11,7 @@ export class StoryArcParser implements HtmlParser<EventArc> {
         const dom = new JSDOM(htmlString)
         const result: EventArc = {
             name: '',
-            storyBeats: [],
+            eventBeats: [],
             startingIndex: 0
         }
 
@@ -28,7 +28,7 @@ export class StoryArcParser implements HtmlParser<EventArc> {
             if (context.startsWith('Name:')) {
                 result.name = context.substring('Name:'.length).trim()
             } else if (context.startsWith('Story Beats:')) {
-                result.storyBeats = await parseChildren(firstList.childNodes[c], storyBeatParser)
+                result.eventBeats = await parseChildren(firstList.childNodes[c], storyBeatParser)
             }
         }
 

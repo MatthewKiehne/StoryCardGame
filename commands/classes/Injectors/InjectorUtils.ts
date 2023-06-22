@@ -1,5 +1,6 @@
 import { resolveModuleName } from "typescript";
 import { HtmlInjector } from "./HtmlInjector";
+import { InjectorContext } from "./InjectorContext";
 
 export class InjectorUtils {
     
@@ -7,7 +8,7 @@ export class InjectorUtils {
     public static readonly endCustomBracket: string = '&gt;&gt;'
     public static readonly customSeparator = "|";
 
-    public static textToHtmlText(text: string, injectors: HtmlInjector[]): string {
+    public static textToHtmlText(text: string, injectors: HtmlInjector[], injectorContext: InjectorContext): string {
         let stringToParse: string = text
         if (text == null || text == '') {
             return ''
@@ -35,7 +36,7 @@ export class InjectorUtils {
             }
             else
             {
-                result += injector.inject(partials);
+                result += injector.inject(partials, injectorContext);
             }
 
             stringToParse = stringToParse.substring(parseEnd + InjectorUtils.endCustomBracket.length)
