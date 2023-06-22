@@ -1,6 +1,7 @@
-import { StoryBeat } from "../ObsidianData/StoryBeat";
+import { EventBeat } from "../ObsidianData/StoryBeat";
 
-export interface RenderEventBeat extends StoryBeat{
+
+export interface RenderEventBeat extends EventBeat{
     storyArcName: string,
     displayText: string
 }

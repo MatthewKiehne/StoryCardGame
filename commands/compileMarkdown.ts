@@ -5,8 +5,7 @@ import { StatBlockParser } from './classes/Parsers/StatBlockParser'
 import { HtmlParser } from './interfaces/HtmlParser'
 import { BattleMapParser } from './classes/Parsers/BattleMapParser'
 import { StoryArcParser } from './classes/Parsers/StoryArcParser'
-import { StoryBeat } from './interfaces/ObsidianData/StoryBeat'
-import { StoryArc } from './interfaces/ObsidianData/StoryArc'
+import { EventArc } from './interfaces/ObsidianData/StoryArc'
 
 async function compileAll() {
     const cardDirectory = './World Ideas/Cards'
@@ -24,7 +23,7 @@ async function compileAll() {
 
 async function randomizeStoryBeats(filePath: string) {
     const text: string = fs.readFileSync(filePath, 'utf-8')
-    const storyArcs: StoryArc[] = JSON.parse(text)
+    const storyArcs: EventArc[] = JSON.parse(text)
 
     const storyBeatPosition: number[] = []
     for (let a = 0; a < storyArcs.length; a++) {

@@ -1,6 +1,6 @@
 import { NamedData } from "../NamedData";
 
-export interface StoryBeat extends NamedData{
+export interface EventBeat extends NamedData{
     text: string,
     index: number
 }

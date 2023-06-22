@@ -7,9 +7,9 @@ import { CardConverter } from './commands/classes/Converters/CardConverter'
 import { BattleMapConverter } from './commands/classes/Converters/BattleMapConverter'
 import { BattleMap } from './commands/interfaces/ObsidianData/BattleMap'
 import { RenderBattleMap } from './commands/interfaces/DisplayData/RenderBattleMap'
-import { StoryArc } from './commands/interfaces/ObsidianData/StoryArc'
 import { EventBeatConverter } from './commands/classes/Converters/EventConverter'
 import { RenderEventBeat } from './commands/interfaces/DisplayData/RenderEventBeat'
+import { EventArc } from './commands/interfaces/ObsidianData/StoryArc'
 const app = express()
 
 app.set('view engine', 'ejs')
@@ -124,7 +124,7 @@ app.get('/battleMaps', (req, res) => {
 
 app.get('/events', (req, res) => {
     const text: string = fs.readFileSync('./data/events/eventsData.json', 'utf-8')
-    const events: StoryArc[] = JSON.parse(text)
+    const events: EventArc[] = JSON.parse(text)
 
     const converter: EventBeatConverter = new EventBeatConverter()
 

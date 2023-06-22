@@ -1,13 +1,13 @@
 import { HtmlParser } from "../../interfaces/HtmlParser";
-import { StoryBeat } from "../../interfaces/ObsidianData/StoryBeat";
 
 import * as jsdom from 'jsdom'
+import { EventBeat } from "../../interfaces/ObsidianData/StoryBeat";
 const { JSDOM } = jsdom
 
-export class StoryBeatParser implements HtmlParser<StoryBeat>{
-    async ParseFromString(htmlString: string): Promise<StoryBeat> {
+export class StoryBeatParser implements HtmlParser<EventBeat>{
+    async ParseFromString(htmlString: string): Promise<EventBeat> {
         const dom = new JSDOM(htmlString)
-        const result: StoryBeat = {
+        const result: EventBeat = {
             name: '',
             text: "",
             index: 0

@@ -1,15 +1,15 @@
 import { HtmlParser } from '../../interfaces/HtmlParser'
-import { StoryArc } from '../../interfaces/ObsidianData/StoryArc'
 
 import * as jsdom from 'jsdom'
 import { parseChildren } from './ParseUtils'
 import { StoryBeatParser } from './StoryBeatParser'
+import { EventArc } from '../../interfaces/ObsidianData/StoryArc'
 const { JSDOM } = jsdom
 
-export class StoryArcParser implements HtmlParser<StoryArc> {
-    async ParseFromString(htmlString: string): Promise<StoryArc> {
+export class StoryArcParser implements HtmlParser<EventArc> {
+    async ParseFromString(htmlString: string): Promise<EventArc> {
         const dom = new JSDOM(htmlString)
-        const result: StoryArc = {
+        const result: EventArc = {
             name: '',
             storyBeats: [],
             startingIndex: 0

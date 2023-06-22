@@ -1,8 +1,8 @@
 import { NamedData } from "../NamedData";
-import { StoryBeat } from "./StoryBeat";
+import { EventBeat } from "./StoryBeat";
 
-export interface StoryArc extends NamedData
+export interface EventArc extends NamedData
 {
-    storyBeats: StoryBeat[],
+    storyBeats: EventBeat[],
     startingIndex: number
 }
