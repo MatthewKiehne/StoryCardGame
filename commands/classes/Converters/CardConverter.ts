@@ -1,11 +1,12 @@
 import { RenderCardData } from '../../interfaces/DisplayData/RenderCardData'
 import { CardData } from '../../interfaces/ObsidianData/Card'
+import { HtmlInjector } from '../Injectors/HtmlInjector'
+import { IconInjector } from '../Injectors/IconInjector'
+import { InjectorUtils } from '../Injectors/InjectorUtils'
 import { DataConverter } from './DataConverter'
 
 export class CardConverter implements DataConverter<CardData, RenderCardData> {
-    private readonly startCustomBracket: string = '&lt;'
-    private readonly endCustomBracket: string = '&gt;'
-
+    
     convert(cardData: CardData, additionalData: any): RenderCardData {
         const renderCardData: RenderCardData = {
             name: cardData.name,
@@ -33,8 +34,13 @@ export class CardConverter implements DataConverter<CardData, RenderCardData> {
             }
         }
 
+        const injectors: HtmlInjector[] = [
+            new IconInjector()
+        ];
+
         for (let cardTextIndex = 0; cardTextIndex < cardData.textBlocks.length; cardTextIndex++) {
-            renderCardData.htmlTexts.push(this.textToHtmlText(cardData.textBlocks[cardTextIndex]))
+            const html: string = InjectorUtils.textToHtmlText(cardData.textBlocks[cardTextIndex], injectors);
+            renderCardData.htmlTexts.push(html);
         }
 
         return renderCardData
@@ -52,75 +58,5 @@ export class CardConverter implements DataConverter<CardData, RenderCardData> {
         }
 
         return 'pictures/CircleWhite.png'
-    }
-
-    private textToHtmlText(text: string): string {
-        let stringToParse: string = text
-        if (text == null || text == '') {
-            return ''
-        }
-
-        let result: string = ''
-        let parseStart: number = stringToParse.indexOf(this.startCustomBracket)
-
-        if (parseStart === -1) {
-            return text
-        }
-
-        while (parseStart != -1) {
-            result = result + stringToParse.substring(0, parseStart)
-            const parseEnd: number = stringToParse.indexOf(this.endCustomBracket)
-
-            const parseIconValue = stringToParse.substring(parseStart + this.startCustomBracket.length, parseEnd)
-            result = result + this.parseIcon(parseIconValue)
-
-            stringToParse = stringToParse.substring(parseEnd + this.endCustomBracket.length)
-            parseStart = stringToParse.indexOf(this.startCustomBracket)
-        }
-
-        return result
-    }
-
-    private parseIcon(stringValue: string) {
-        if (stringValue == null) {
-            return ''
-        }
-
-        const valueParts = stringValue.split('|')
-        let result = '<i class="icon-' + valueParts[0] + '"'
-
-        let styleString = ''
-
-        for (let i = 1; i < valueParts.length; i++) {
-            styleString = styleString + this.parseIconDescriptor(valueParts[i]) + ';'
-        }
-
-        if (styleString.length != 0) {
-            result += 'style="' + styleString + '"'
-        }
-
-        result = result + '></i>'
-        return result
-    }
-
-    private parseIconDescriptor(descriptor: string) {
-        if (descriptor == null) {
-            return ''
-        }
-
-        switch (descriptor.trim()) {
-            case 'black':
-                return 'color:black'
-            case 'white':
-                return 'color:white'
-            case 'blue':
-                return 'color:blue'
-            case 'green':
-                return 'color:green'
-            case 'red':
-                return 'color:red'
-            default:
-                return ''
-        }
     }
 }

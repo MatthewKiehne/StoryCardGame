@@ -8,7 +8,6 @@ import { BattleMapConverter } from './commands/classes/Converters/BattleMapConve
 import { BattleMap } from './commands/interfaces/ObsidianData/BattleMap'
 import { RenderBattleMap } from './commands/interfaces/DisplayData/RenderBattleMap'
 import { StoryArc } from './commands/interfaces/ObsidianData/StoryArc'
-import { StoryBeat } from './commands/interfaces/ObsidianData/StoryBeat'
 import { EventBeatConverter } from './commands/classes/Converters/EventConverter'
 import { RenderEventBeat } from './commands/interfaces/DisplayData/RenderEventBeat'
 const app = express()
@@ -142,6 +141,6 @@ app.get('/events', (req, res) => {
 
 app.listen(3000, async () => {
 
-    // await compileAll()
-    console.log('Server started on port 3000')
+    await compileAll();
+    console.log('Server started on port 3000');
 })
