@@ -1,5 +1,5 @@
 import express from 'express'
-import { CardData } from './commands/interfaces/ObsidianData/Card'
+import { CardData } from './commands/interfaces/ObsidianData/CardData'
 import { RenderCardData } from './commands/interfaces/DisplayData/RenderCardData'
 import { compileAll } from './commands/compileMarkdown'
 import * as fs from 'fs'

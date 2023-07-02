@@ -1,5 +1,5 @@
 import { HtmlParser } from '../../interfaces/HtmlParser'
-import { CardData } from '../../interfaces/ObsidianData/Card'
+import { CardData } from '../../interfaces/ObsidianData/CardData'
 import * as jsdom from "jsdom";
 import { getChildrenAsStrings } from './ParseUtils';
 

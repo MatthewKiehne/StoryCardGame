@@ -1,4 +1,4 @@
-import { CardData } from "../ObsidianData/Card";
+import { CardData } from "../ObsidianData/CardData";
 
 export interface RenderCardData extends CardData {
     orbLinks: string[],

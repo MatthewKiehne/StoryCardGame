@@ -179,3 +179,10 @@ hr.taperedLine {
     margin-top: 0px;
     margin-bottom: 3px;
 }
+
+.cardPage {
+    display: grid;
+    grid-template-rows: 3.5in 3.5in 3.5in;
+    grid-auto-flow: column;
+    grid-auto-columns: 2.5in 2.5in 2.5in;
+}

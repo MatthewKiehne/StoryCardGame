@@ -1,5 +1,5 @@
 import { RenderCardData } from '../../interfaces/DisplayData/RenderCardData'
-import { CardData } from '../../interfaces/ObsidianData/Card'
+import { CardData } from '../../interfaces/ObsidianData/CardData'
 import { HtmlInjector } from '../Injectors/HtmlInjector'
 import { IconInjector } from '../Injectors/IconInjector'
 import { InjectorContext } from '../Injectors/InjectorContext'
