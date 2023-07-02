@@ -7,27 +7,37 @@
 </head>
 
 <body>
-  <% for(let p = 0; p < data.length; p++){ %>
-    <div class="page">
-      <% const page = data[p]; %>
-      <% for (let c = 0; c < page.length; c++){ %>
-        <% const card = page[c]; %>
-        <div class="card">
-          <img src="pictures/CardOutline.png" alt="outlinedCard" class="backCard">
-          <div class="title">
-            
-          </div>
-          <img src= <%- card.orbLinks[0]  %> class="innerCircle innerCircleTop" alt="">
-          <img src= <%- card.orbLinks[1]  %> class="innerCircle innerCircleBottom" alt="">
-          <img src= <%- card.orbLinks[2]  %> class="innerCircle innerCircleLeft" alt="">
-          <img src= <%- card.orbLinks[3]  %> class="innerCircle innerCircleRight" alt="">
+  <% const cardsPerPage = 6; %>
+  <% let totalPages = Math.floor(data.length / cardsPerPage); %>
+  <% if(data.length % cardsPerPage != 0) { %>
+    <% totalPages++; %>
+  <% } %>
 
-          <img src="pictures/CircleBlack.png"  class="orbCardTopMarker" alt="">
+  <% for(let p = 0; p < totalPages; p++){ %>
+    
+    <% let cardsOnPage = cardsPerPage %>
+    <% if(p == (totalPages - 1) && data.length % cardsPerPage != 0) {%>
+      <% cardsOnPage = data.length % cardsPerPage %>
+    <% } %>
+
+    <div class="page largeCardsPage">
+      <% for (let c = 0; c < cardsOnPage; c++){ %>
+        <% const card = data[(p * cardsPerPage) + c]; %>
+        <div class="largeCard">
+
+          <img src="pictures/CardOutline.png" alt="outlinedCard" class="backCard">
+
+          <img src= <%- card.orbLinks[0]  %> class="innerSquare innerSquareTop" alt="">
+          <img src= <%- card.orbLinks[1]  %> class="innerSquare innerSquareBottom" alt="">
+          <img src= <%- card.orbLinks[2]  %> class="innerSquare innerSquareLeft" alt="">
+          <img src= <%- card.orbLinks[3]  %> class="innerSquare innerSquareRight" alt="">
+
+          <img src="pictures/SquareBlack.png"  class="largeOrbCardTopMarker" alt="">
           
-          <img src="pictures/CircleBlack.png" class="outerCircle outerCircleTop" alt="">
-          <img src="pictures/CircleBlack.png" class="outerCircle outerCircleBottom" alt="">
-          <img src="pictures/CircleBlack.png" class="outerCircle outerCircleLeft" alt="">
-          <img src="pictures/CircleBlack.png" class="outerCircle outerCircleRight" alt="">
+          <img src="pictures/SquareBlack.png" class="outerSquare outerSquareTop" alt="">
+          <img src="pictures/SquareBlack.png" class="outerSquare outerSquareBottom" alt="">
+          <img src="pictures/SquareBlack.png" class="outerSquare outerSquareLeft" alt="">
+          <img src="pictures/SquareBlack.png" class="outerSquare outerSquareRight" alt="">
         </div>
       <% } %>
     </div>

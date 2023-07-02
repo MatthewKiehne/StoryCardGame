@@ -1,6 +1,9 @@
 :root{
     --circle-diameter: 30px;
     --circle-border: 2px;
+
+    --square-diameter: 70px;
+    --square-border: 4px;
 }
 
 body{
@@ -106,6 +109,62 @@ p{
     z-index: 1;
 }
 
+.innerSquareTop{
+    top: calc((var(--square-diameter) / 2) + var(--square-border));
+    left: 50%;
+}
+
+.innerSquareBottom{
+    bottom: calc(((var(--square-diameter) / 2) * -1) + var(--square-border));
+    left: 50%;
+}
+
+.innerSquareLeft{
+    top: 50%;
+    left: calc((var(--square-diameter) / 2) + var(--square-border));
+}
+
+.innerSquareRight{
+    top: 50%;
+    right: calc(((var(--square-diameter) / 2) * -1) + var(--square-border));
+}
+
+.innerSquare {
+    transform: translate3d(-50%, -50%, 0 );
+    position: absolute;
+    width: var(--square-diameter);
+    height: var(--square-diameter);
+    z-index: 2;
+}
+
+.outerSquareTop{
+    top: calc((var(--square-diameter) / 2) + var(--square-border));
+    left: 50%;
+}
+
+.outerSquareBottom{
+    bottom: calc(((var(--square-diameter) / 2) + var(--square-border)) * -1);
+    left: 50%;
+}
+
+.outerSquareLeft{
+    top: 50%;
+    left: calc((var(--square-diameter) / 2) + var(--square-border));
+}
+
+.outerSquareRight{
+    top: 50%;
+    right: calc(((var(--square-diameter) / 2) + var(--square-border)) * -1);;
+}
+
+.outerSquare {
+    position: absolute;
+    transform: translate3d(-50%, -50%, 0 );
+    width: calc(var(--square-diameter) + (var(--square-border) * 2));
+    height: calc(var(--square-diameter) + (var(--square-border) * 2));
+    z-index: 1;
+}
+
 .orbCardTopMarker
 {
     transform: translate3d(-50%, -50%, 0 );
@@ -185,4 +244,27 @@ hr.taperedLine {
     grid-template-rows: 3.5in 3.5in 3.5in;
     grid-auto-flow: column;
     grid-auto-columns: 2.5in 2.5in 2.5in;
+}
+
+.largeCardsPage {
+    display: grid;
+    grid-template-rows: 3in 3in 3in;
+    grid-auto-flow: column;
+    grid-auto-columns: 4in 4in;
+}
+
+.largeCard {
+    height: 3in;
+    width: 4in;
+    position: relative
+}
+
+.largeOrbCardTopMarker {
+    transform: translate3d(-50%, -50%, 0 );
+    position: absolute;
+    width: var(--circle-diameter);
+    height: var(--circle-diameter);
+    z-index: 2;
+    left: 25%;
+    top: 50%;
 }

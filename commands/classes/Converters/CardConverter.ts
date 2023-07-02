@@ -51,7 +51,7 @@ export class CardConverter implements DataConverter<CardData, RenderCardData> {
         return renderCardData
     }
 
-    private intToColorLink(value: number): string {
+    public intToColorLink(value: number): string {
         if (value === 0) {
             return 'pictures/CircleBlue.png'
         } else if (value === 1) {
@@ -63,5 +63,19 @@ export class CardConverter implements DataConverter<CardData, RenderCardData> {
         }
 
         return 'pictures/CircleWhite.png'
+    }
+
+    public intToColorSquareLink(value: number): string {
+        if (value === 0) {
+            return 'pictures/SquareBlue.png'
+        } else if (value === 1) {
+            return 'pictures/SquareRed.png'
+        } else if (value === 2) {
+            return 'pictures/SquareGreen.png'
+        } else if (value === 3) {
+            return 'pictures/SquareWhite.png'
+        }
+
+        return 'pictures/SquareWhite.png'
     }
 }

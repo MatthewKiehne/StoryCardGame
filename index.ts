@@ -62,49 +62,29 @@ app.get('/', (req, res) => {
 })
 
 app.get('/orbCards', (req, res) => {
-    const pageSize = 9
-    let pageIndex = 0
-    let pages: any[] = []
 
     let linkCardList: any[] = []
+
+    const cardConverter: CardConverter = new CardConverter();
 
     for (let top = 0; top < 3; top++) {
         for (let right = 0; right < 3; right++) {
             for (let bottom = 0; bottom < 3; bottom++) {
                 for (let left = 0; left < 3; left++) {
                     linkCardList.push({
-                        orbs: [top, right, bottom, left],
+                        orbLinks: [
+                            cardConverter.intToColorSquareLink(top), 
+                            cardConverter.intToColorSquareLink(right), 
+                            cardConverter.intToColorSquareLink(bottom), 
+                            cardConverter.intToColorSquareLink(left)
+                        ],
                     })
                 }
             }
         }
     }
 
-    while (pageSize * pageIndex < linkCardList.length) {
-        let pageCardCount = pageSize
-        if (pageSize * pageIndex + pageSize > linkCardList.length) {
-            pageCardCount = linkCardList.length % pageSize
-        }
-
-        let page: any = []
-        for (let i = 0; i < pageCardCount; i++) {
-            const ordCardData = linkCardList[pageSize * pageIndex + i]
-
-            let orbLinks: string[] = []
-            for (let c = 0; c < ordCardData.orbs.length; c++) {
-                // orbLinks[c] = intToColorLink(ordCardData.orbs[c])
-            }
-
-            ordCardData.orbLinks = orbLinks
-
-            page[i] = ordCardData
-        }
-
-        pages[pageIndex] = page
-        pageIndex++
-    }
-
-    res.render('backs', { data: pages })
+    res.render('backs', { data: linkCardList })
 })
 
 app.get('/battleMaps', (req, res) => {
