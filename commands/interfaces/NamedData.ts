@@ -1,5 +1,6 @@
 interface NamedData {
-    name: string
+    name: string,
+    index: number
 }
 
 export { NamedData }

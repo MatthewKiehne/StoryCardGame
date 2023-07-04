@@ -19,7 +19,8 @@ export class BattleMapConverter implements DataConverter<BattleMap, RenderBattle
             url: data.url,
             behavior: data.behavior,
             statBlocks: data.statBlocks,
-            renderStatBlocks: []
+            renderStatBlocks: [],
+            index: 0
         }
 
         const statBlockConverter :StatBlockConverter = new StatBlockConverter();

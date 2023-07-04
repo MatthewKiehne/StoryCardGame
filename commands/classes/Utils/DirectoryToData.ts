@@ -2,32 +2,40 @@ import * as fs from 'fs';
 import * as h from 'node:child_process';
 import * as util from 'node:util';
 import { HtmlParser } from '../../interfaces/HtmlParser';
+import { NamedData } from '../../interfaces/NamedData';
 
 const exec = util.promisify(h.exec);
 
 class DirectoryToData {
-    async parse<T>(inputDirectory: string, outputFile: string, parser: HtmlParser<T>): Promise<T[]> {
+    async parse<NamedData>(inputDirectory: string, outputFile: string, parser: HtmlParser<NamedData>, callback: (data: NamedData[]) => void): Promise<NamedData[]> {
         const tempOutputCardDirectory = './tempOutput';
 
         await this.markdownToHtmlFile(inputDirectory, tempOutputCardDirectory);
 
-        const data: T[] = [];
+        const data: NamedData[] = [];
 
         var files = fs.readdirSync(tempOutputCardDirectory);
 
         for (let i = 0; i < files.length; i++) {
             const text = await fs.promises.readFile(tempOutputCardDirectory + "/" + files[i]);
             const htmlString = String(text)
-            const parsedData: T = await parser.ParseFromString(htmlString);
+            const parsedData: NamedData = await parser.ParseFromString(htmlString);
             data.push(parsedData);
         }
+
+        if(callback !== undefined)
+        {
+            callback(data);
+        }
+
+        const randomizedData = this.randomizeIndexes(data);
 
         fs.rmSync(tempOutputCardDirectory, { recursive: true, force: true });
 
         if ((await fs).existsSync(outputFile)) {
             fs.rmSync(outputFile, { recursive: true, force: true });
         }
-        await fs.writeFileSync(outputFile, JSON.stringify(data));
+        await fs.writeFileSync(outputFile, JSON.stringify(randomizedData));
 
         return data;
     }
@@ -63,6 +71,30 @@ class DirectoryToData {
     private async runMarkdownToHtmlCommand(cardPath: string, fileName: string, outputDirectory: string): Promise<void> {
         const fileParts = fileName.split("\.");
         const { stdout, stderr } = await exec("pandoc -f markdown -t html \"" + cardPath + "\" -o \"" + outputDirectory + "\\" + fileParts[0] + ".html\"");
+    }
+
+    private randomizeIndexes<T>(data: T[]): T[] {
+    
+        const positions: number[] = []
+        for (let a = 0; a < positions.length; a++) {
+            positions.push(positions.length)
+            
+        }
+    
+        for (let i = 0; i < positions.length * 7; i++) {
+            const first = this.getRandomInt(positions.length)
+            const second = this.getRandomInt(positions.length)
+    
+            const tmp = positions[first]
+            positions[first] = positions[second]
+            positions[second] = tmp
+        }
+    
+        return data;
+    }
+    
+    private getRandomInt(max: number) {
+        return Math.floor(Math.random() * max)
     }
 }
 

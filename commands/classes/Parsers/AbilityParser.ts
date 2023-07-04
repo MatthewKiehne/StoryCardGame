@@ -11,6 +11,7 @@ export class AbilityParser implements HtmlParser<Ability> {
         const result: Ability = {
             name: '',
             description: '',
+            index: 0
         }
 
         const firstList = dom.window.document.querySelector('ul')

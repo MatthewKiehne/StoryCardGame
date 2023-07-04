@@ -21,7 +21,7 @@ export class CardConverter implements DataConverter<CardData, RenderCardData> {
             htmlTexts: [],
             quantityIndex: additionalData.quantityIndex,
             setAbbreviation: 'bsc',
-            cardIndex: additionalData.cardIndex,
+            index: additionalData.cardIndex,
             setQuantity: additionalData.setQuantity,
         }
 

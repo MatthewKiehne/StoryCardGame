@@ -7,6 +7,7 @@ import { BattleMapParser } from './classes/Parsers/BattleMapParser'
 import { StoryArcParser } from './classes/Parsers/StoryArcParser'
 import { NamedData } from './interfaces/NamedData'
 import { DataBaseCollection, DataBaseLookUp } from './classes/Lookup/DataBaseLookUp'
+import { EventArc } from './interfaces/ObsidianData/StoryArc'
 
 async function compileAll() {
     DataBaseLookUp.Collections = new Map<string, DataBaseCollection<any>>()
@@ -21,10 +22,14 @@ async function compileAll() {
     await createFiles(battleMapDirectory, DataBaseLookUp.battleMapDataName, new BattleMapParser())
 
     const storyBeatDirectory = './World Ideas/Events'
-    await createFiles(storyBeatDirectory, DataBaseLookUp.eventsDataName, new StoryArcParser())
+    await createFilesWithCallback(storyBeatDirectory, DataBaseLookUp.eventsDataName, new StoryArcParser(), randomizeStoryBeats)
 }
 
-async function createFiles<T>(sourceDirectory: string, dataName: string, htmlParser: HtmlParser<T>) {
+async function createFiles<T>(sourceDirectory: string, dataName: string, htmlParser: HtmlParser<T>): Promise<DataBaseCollection<T>> {
+    return await createFilesWithCallback(sourceDirectory, dataName, htmlParser, (data: T[]) => {});
+}
+
+async function createFilesWithCallback<NamedData>(sourceDirectory: string, dataName: string, htmlParser: HtmlParser<NamedData>, callback: (data: NamedData[]) => void): Promise<DataBaseCollection<NamedData>> {
     const dataDirectory = './data/' + dataName
 
     const dataFile = './data/' + dataName + '/' + dataName + 'Data.json'
@@ -37,9 +42,9 @@ async function createFiles<T>(sourceDirectory: string, dataName: string, htmlPar
     }
 
     const markdownParser: DirectoryToData = new DirectoryToData()
-    const data: T[] = await markdownParser.parse(sourceDirectory, dataFile, htmlParser)
+    const data: NamedData[] = await markdownParser.parse(sourceDirectory, dataFile, htmlParser, callback)
 
-    const collection: DataBaseCollection<T> = {
+    const collection: DataBaseCollection<NamedData> = {
         data: data,
         indexedData: await createFromIndexData(data, fromIndexFile),
         nameToIndex: await createToIndexData(data, toIndexFile),
@@ -47,6 +52,8 @@ async function createFiles<T>(sourceDirectory: string, dataName: string, htmlPar
     }
 
     DataBaseLookUp.Collections.set(dataName, collection)
+
+    return collection;
 }
 
 async function createFromIndexData<T>(parsedData: T[], outputFile: string): Promise<Map<number, T>> {
@@ -108,6 +115,43 @@ async function createFromNameData<T>(parsedData: T[], outputFile: string): Promi
 
     await fs.writeFileSync(outputFile, JSON.stringify(fileData))
     return data
+}
+
+function randomizeStoryBeats<T>(data: T[]): T[] {
+
+    const arcs: EventArc[] = data as EventArc[];
+
+    const storyBeatPosition: number[] = []
+    for (let a = 0; a < arcs.length; a++) {
+        for (let b = 0; b < arcs[a].eventBeats.length; b++) {
+            storyBeatPosition.push(storyBeatPosition.length)
+        }
+    }
+
+    for (let i = 0; i < storyBeatPosition.length * 7; i++) {
+        const first = getRandomInt(storyBeatPosition.length)
+        const second = getRandomInt(storyBeatPosition.length)
+
+        const tmp = storyBeatPosition[first]
+        storyBeatPosition[first] = storyBeatPosition[second]
+        storyBeatPosition[second] = tmp
+    }
+
+    let positionIndex = 0
+    for (let a = 0; a < arcs.length; a++) {
+        arcs[a].startingIndex = storyBeatPosition[positionIndex]
+
+        for (let b = 0; b < arcs[a].eventBeats.length; b++) {
+            arcs[a].eventBeats[b].index = storyBeatPosition[positionIndex]
+            positionIndex++
+        }
+    }
+
+    return data;
+}
+
+function getRandomInt(max: number) {
+    return Math.floor(Math.random() * max)
 }
 
 export { compileAll, DataBaseLookUp }

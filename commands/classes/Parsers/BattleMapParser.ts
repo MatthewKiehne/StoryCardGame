@@ -12,7 +12,8 @@ export class BattleMapParser implements HtmlParser<BattleMap>{
             height: 1,
             url: "",
             statBlocks: "",
-            behavior: ""
+            behavior: "",
+            index: 0
         }
 
         const dom = new JSDOM(htmlString);

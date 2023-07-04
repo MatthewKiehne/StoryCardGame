@@ -15,6 +15,7 @@ export class StatBlockParser implements HtmlParser<StatBlock> {
             behaviors: [],
             abilities: [],
             woundSlots: [],
+            index: 0
         }
 
         const firstList = dom.window.document.querySelector('ul')

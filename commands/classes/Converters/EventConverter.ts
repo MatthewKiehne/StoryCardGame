@@ -1,6 +1,7 @@
 import { RenderEventBeat } from "../../interfaces/DisplayData/RenderEventBeat";
 import { EventArc } from "../../interfaces/ObsidianData/StoryArc";
 import { EventBeat } from "../../interfaces/ObsidianData/StoryBeat";
+import { CardInjector } from "../Injectors/CardInjector";
 import { EventInjector } from "../Injectors/EventInjector";
 import { HtmlInjector } from "../Injectors/HtmlInjector";
 import { IconInjector } from "../Injectors/IconInjector";
@@ -23,7 +24,8 @@ export class EventBeatConverter implements DataConverter<EventBeat, RenderEventB
 
         const injectors: HtmlInjector[] = [
             new IconInjector(),
-            new EventInjector()
+            new EventInjector(),
+            new CardInjector()
         ];
 
         const injectorContext: InjectorContext = {

@@ -12,7 +12,8 @@ export class StoryArcParser implements HtmlParser<EventArc> {
         const result: EventArc = {
             name: '',
             eventBeats: [],
-            startingIndex: 0
+            startingIndex: 0,
+            index: 0
         }
 
         const firstList = dom.window.document.querySelector('ul')

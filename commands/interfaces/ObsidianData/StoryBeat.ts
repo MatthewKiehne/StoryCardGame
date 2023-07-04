@@ -1,6 +1,5 @@
 import { NamedData } from "../NamedData";
 
 export interface EventBeat extends NamedData{
-    text: string,
-    index: number
+    text: string
 }

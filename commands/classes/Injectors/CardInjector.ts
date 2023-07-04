@@ -1,5 +1,4 @@
 import { RenderCardData } from '../../interfaces/DisplayData/RenderCardData'
-import { CardData } from '../../interfaces/ObsidianData/CardData'
 import { HtmlInjector } from './HtmlInjector'
 import { InjectorContext } from './InjectorContext'
 
@@ -11,6 +10,7 @@ export class CardInjector implements HtmlInjector {
     }
 
     inject(text: string[], injectorContext: InjectorContext): string {
+        
         switch (text[1]) {
             case 'name': {
                 return this.injectName(text)
@@ -32,6 +32,6 @@ export class CardInjector implements HtmlInjector {
         }
 
 
-        return card.name + "(" + card.cardIndex + ")";
+        return card.name + "(" + card.index + ")";
     }
 }

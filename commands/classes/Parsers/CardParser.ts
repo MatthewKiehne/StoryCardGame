@@ -16,7 +16,8 @@ export class CardParser implements HtmlParser<CardData> {
             cost: "",
             tags: "",
             rarity: "C",
-            quantity: 1
+            quantity: 1,
+            index: 0
         };
 
         const firstList = dom.window.document.querySelector("ul");

@@ -5,6 +5,5 @@ export interface RenderCardData extends CardData {
     htmlTexts: string[],
     quantityIndex: number,
     setAbbreviation: string,
-    cardIndex: number,
     setQuantity: number
 }

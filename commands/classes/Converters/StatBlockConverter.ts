@@ -11,6 +11,7 @@ export class StatBlockConverter implements DataConverter<StatBlock, RenderStatBl
             abilities: data.abilities,
             woundSlots: data.woundSlots,
             quantity: additionalData.quantity,
+            index: 0
         }
 
         return result
