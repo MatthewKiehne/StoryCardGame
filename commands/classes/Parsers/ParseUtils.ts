@@ -32,6 +32,7 @@ async function parseChildren<T>(node: ChildNode, htmlParser: HtmlParser<T>): Pro
             const lineData: string | null = nodes[i].textContent;
             if (lineData != '' && lineData != undefined && lineData !== '\n') {
                 const node = nodes[i] as HTMLElement;
+                console.log(node.outerHTML);
                 result.push(await htmlParser.ParseFromString(node.outerHTML));
             }
         }

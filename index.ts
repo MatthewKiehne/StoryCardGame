@@ -1,7 +1,7 @@
 import express from 'express';
 import { CardData } from './commands/interfaces/ObsidianData/CardData';
 import { RenderCardData } from './commands/interfaces/DisplayData/RenderCardData';
-import { compileAll } from './commands/compileMarkdown';
+import { DataBaseLookUp, compileAll } from './commands/compileMarkdown';
 import * as fs from 'fs';
 import { CardConverter } from './commands/classes/Converters/CardConverter';
 import { BattleMapConverter } from './commands/classes/Converters/BattleMapConverter';
@@ -102,9 +102,8 @@ app.get('/battleMaps', (req, res) => {
 });
 
 app.get('/events', (req, res) => {
-    const text: string = fs.readFileSync('./data/events/eventsData.json', 'utf-8');
 
-    const events: EventArc[] = JSON.parse(text);
+    const events: EventArc[] = DataBaseLookUp.getAs<EventArc>(DataBaseLookUp.eventsDataName).data;
 
     const converter: EventBeatConverter = new EventBeatConverter();
 

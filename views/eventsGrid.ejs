@@ -55,10 +55,11 @@
                   <h2 class="segmentHeader">
                     <%- data[p].name %>
                   </h2>
-
-                  <span class="segmentText">
-                    <%- data[p].displayText %>
-                  </span>
+                  <% for(let t = 0; t < data[p].displayText.length; t++) {%>
+                    <div class="segmentText">
+                      <%- data[p].displayText[t] %>
+                    </div>
+                  <% } %>
                 <% } %>
               </div>
             <% } %>

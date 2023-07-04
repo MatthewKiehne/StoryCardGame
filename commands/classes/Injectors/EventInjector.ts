@@ -1,7 +1,7 @@
 import { RenderEventBeat } from '../../interfaces/DisplayData/RenderEventBeat';
 import { EventArc } from '../../interfaces/ObsidianData/StoryArc';
 import { EventBeat } from '../../interfaces/ObsidianData/StoryBeat';
-import { DataBaseLookUp } from '../Lookup/DataBaseLookUp';
+import { DataBaseCollection, DataBaseLookUp } from '../Lookup/DataBaseLookUp';
 import { HtmlInjector } from './HtmlInjector';
 import { InjectorContext } from './InjectorContext';
 
@@ -13,14 +13,14 @@ export class EventInjector implements HtmlInjector {
     }
 
     inject(text: string[], injectorContext: InjectorContext): string {
-        const arcs: EventArc[] = DataBaseLookUp.getAs<EventArc>(DataBaseLookUp.eventsDataName).data;
+        const arcs: DataBaseCollection<EventArc> = DataBaseLookUp.getAs<EventArc>(DataBaseLookUp.eventsDataName);
 
         switch (text[1]) {
             case 'continue': {
-                return this.injectContinue(injectorContext.eventBeat, arcs);
+                return this.injectContinue(injectorContext.eventBeat, arcs.data);
             }
             case 'name': {
-                return this.injectName(text, arcs);
+                return this.injectName(text, arcs.data);
             }
             default: {
                 return '';

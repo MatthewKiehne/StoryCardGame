@@ -8,19 +8,7 @@
         "type": "tabs",
         "children": [
           {
-            "id": "ef1474e6eddf19dd",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Events/Testing.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "02dcf68575bda636",
+            "id": "adc979b86b87a40f",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -30,33 +18,8 @@
                 "source": false
               }
             }
-          },
-          {
-            "id": "7d0e9de24ff7b32e",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Events/Testing.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "adc979b86b87a40f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Cards/Items/Flaming Sword.md",
-                "mode": "source",
-                "source": false
-              }
-            }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -130,7 +93,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Events/Testing.md",
+                "file": "Events/idk really (event).md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -147,7 +110,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Events/Testing.md",
+                "file": "Events/idk really (event).md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -170,7 +133,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Events/Testing.md"
+                "file": "Events/idk really (event).md"
               }
             }
           }
@@ -191,10 +154,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "7d0e9de24ff7b32e",
+  "active": "adc979b86b87a40f",
   "lastOpenFiles": [
-    "Events/idk really (event).md",
     "Cards/Items/Flaming Sword.md",
+    "MockUps/cardMockUp.png",
+    "Items/Obscurite.md",
+    "Events/idk really (event).md",
     "Events/Testing.md",
     "Cards/Items/Healing Potion (Card).md",
     "Cards/Items/Heavy Armor (Card).md",
@@ -205,7 +170,6 @@
     "Random Ideas.md",
     "Stat Blocks/Guard.md",
     "statBlockLookUp.json",
-    "MockUps/cardMockUp.png",
     "MockUps",
     "Stat Blocks",
     "BattleMaps/Descriptions",
@@ -225,12 +189,10 @@
     "Characters/Champions/Facts (The Sage).md",
     "Characters/Champions/Champions.md",
     "History/Macro History.md",
-    "Items/Obscurite.md",
     "Locations/Continent/Retane (Map with Lines).png",
     "Locations/Continent/Retane (Map).png",
     "Locations/Continent/World Map Link.md",
     "WritingNotes/Writing Notes.md",
-    "Templates/Character Prompts.md",
     "Locations/Continent"
   ]
 }

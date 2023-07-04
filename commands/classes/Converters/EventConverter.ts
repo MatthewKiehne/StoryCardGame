@@ -18,7 +18,7 @@ export class EventBeatConverter implements DataConverter<EventBeat, RenderEventB
             index: data.index,
             text: data.text,
             eventArcName: additionalData.eventArcName,
-            displayText: '',
+            displayText: [],
         };
 
         const injectors: HtmlInjector[] = [new IconInjector(), new EventInjector(), new CardInjector()];
@@ -27,7 +27,7 @@ export class EventBeatConverter implements DataConverter<EventBeat, RenderEventB
             eventBeat: result,
         };
 
-        result.displayText = InjectorUtils.textToHtmlText(result.text, injectors, injectorContext);
+        result.displayText = result.text.map(text => InjectorUtils.textToHtmlText(text, injectors, injectorContext));
 
         return result;
     }
