@@ -1,7 +1,6 @@
-import { InjectorContext } from "./InjectorContext";
+import { InjectorContext } from './InjectorContext';
 
-export interface HtmlInjector
-{
-    inject(text: string[], injectorContext: InjectorContext ): string;
-    getIndicator(): string
+export interface HtmlInjector {
+    inject(text: string[], injectorContext: InjectorContext): string;
+    getIndicator(): string;
 }

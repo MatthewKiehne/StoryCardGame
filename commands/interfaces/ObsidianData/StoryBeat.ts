@@ -1,5 +1,5 @@
-import { NamedData } from "../NamedData";
+import { NamedData } from '../NamedData';
 
-export interface EventBeat extends NamedData{
-    text: string
+export interface EventBeat extends NamedData {
+    text: string;
 }

@@ -1,37 +1,35 @@
-import { RenderCardData } from '../../interfaces/DisplayData/RenderCardData'
-import { HtmlInjector } from './HtmlInjector'
-import { InjectorContext } from './InjectorContext'
+import { RenderCardData } from '../../interfaces/DisplayData/RenderCardData';
+import { HtmlInjector } from './HtmlInjector';
+import { InjectorContext } from './InjectorContext';
 
 export class CardInjector implements HtmlInjector {
-    private cards: RenderCardData[] = []
+    private cards: RenderCardData[] = [];
 
     getIndicator(): string {
-        return 'card'
+        return 'card';
     }
 
     inject(text: string[], injectorContext: InjectorContext): string {
-        
         switch (text[1]) {
             case 'name': {
-                return this.injectName(text)
+                return this.injectName(text);
             }
             default: {
-                return ''
+                return '';
             }
         }
     }
 
     private injectName(partials: string[]): string {
         if (partials.length < 2) {
-            return ''
+            return '';
         }
 
-        const card: RenderCardData | undefined = this.cards.find((c) => c.name === partials[2])
+        const card: RenderCardData | undefined = this.cards.find((c) => c.name === partials[2]);
         if (card === undefined) {
-            return ''
+            return '';
         }
 
-
-        return card.name + "(" + card.index + ")";
+        return card.name + '(' + card.index + ')';
     }
 }

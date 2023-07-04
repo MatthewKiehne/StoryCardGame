@@ -1,12 +1,12 @@
-import { NamedData } from "../NamedData"
+import { NamedData } from '../NamedData';
 
 interface CardData extends NamedData {
-    textBlocks: string[],
-    orbs: number[] | null,
-    tags: string,
-    cost: string,
-    rarity: string,
-    quantity: number
+    textBlocks: string[];
+    orbs: number[] | null;
+    tags: string;
+    cost: string;
+    rarity: string;
+    quantity: number;
 }
 
-export { CardData }
+export { CardData };

@@ -1,6 +1,6 @@
 interface NamedData {
-    name: string,
-    index: number
+    name: string;
+    index: number;
 }
 
-export { NamedData }
+export { NamedData };

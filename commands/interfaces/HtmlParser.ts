@@ -1,6 +1,5 @@
-interface HtmlParser<NamedData>
-{
-    ParseFromString(htmlString: string): Promise<NamedData>
+interface HtmlParser<NamedData> {
+    ParseFromString(htmlString: string): Promise<NamedData>;
 }
 
-export {HtmlParser}
+export { HtmlParser };

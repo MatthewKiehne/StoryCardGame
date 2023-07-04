@@ -1,8 +1,7 @@
-import { EventBeat } from "../ObsidianData/StoryBeat";
+import { EventBeat } from '../ObsidianData/StoryBeat';
 
-
-export interface RenderEventBeat extends EventBeat{
-    eventArcName: string,
-    displayText: string,
-    index: number
+export interface RenderEventBeat extends EventBeat {
+    eventArcName: string;
+    displayText: string;
+    index: number;
 }

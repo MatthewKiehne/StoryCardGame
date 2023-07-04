@@ -1,20 +1,19 @@
-import { RenderEventBeat } from '../../interfaces/DisplayData/RenderEventBeat'
-import { EventArc } from '../../interfaces/ObsidianData/StoryArc'
-import { EventBeat } from '../../interfaces/ObsidianData/StoryBeat'
-import { DataBaseLookUp } from '../Lookup/DataBaseLookUp'
-import { HtmlInjector } from './HtmlInjector'
-import { InjectorContext } from './InjectorContext'
+import { RenderEventBeat } from '../../interfaces/DisplayData/RenderEventBeat';
+import { EventArc } from '../../interfaces/ObsidianData/StoryArc';
+import { EventBeat } from '../../interfaces/ObsidianData/StoryBeat';
+import { DataBaseLookUp } from '../Lookup/DataBaseLookUp';
+import { HtmlInjector } from './HtmlInjector';
+import { InjectorContext } from './InjectorContext';
 
 export class EventInjector implements HtmlInjector {
-    
     constructor() {}
 
     getIndicator(): string {
-        return 'event'
+        return 'event';
     }
 
     inject(text: string[], injectorContext: InjectorContext): string {
-        const arcs: EventArc[] = DataBaseLookUp.getAs<EventArc>(DataBaseLookUp.eventsDataName).data
+        const arcs: EventArc[] = DataBaseLookUp.getAs<EventArc>(DataBaseLookUp.eventsDataName).data;
 
         switch (text[1]) {
             case 'continue': {
@@ -31,33 +30,33 @@ export class EventInjector implements HtmlInjector {
 
     private injectContinue(renderEventBeat: RenderEventBeat | undefined, arcs: EventArc[]): string {
         if (renderEventBeat == undefined) {
-            return ''
+            return '';
         }
-        const foundArc: EventArc | undefined = arcs.find((x) => x.name === renderEventBeat.eventArcName)
+        const foundArc: EventArc | undefined = arcs.find((x) => x.name === renderEventBeat.eventArcName);
         if (foundArc === undefined) {
-            return ''
+            return '';
         }
 
-        const eventIndex = foundArc.eventBeats.findIndex((beat) => beat.name === renderEventBeat.name)
+        const eventIndex = foundArc.eventBeats.findIndex((beat) => beat.name === renderEventBeat.name);
         if (eventIndex === -1 || eventIndex === foundArc.eventBeats.length - 1) {
-            return ''
+            return '';
         }
 
-        const nextEventBeat: EventBeat = foundArc.eventBeats[eventIndex + 1]
+        const nextEventBeat: EventBeat = foundArc.eventBeats[eventIndex + 1];
 
-        return nextEventBeat.name + ' (Event ' + nextEventBeat.index + ')'
+        return nextEventBeat.name + ' (Event ' + nextEventBeat.index + ')';
     }
 
     private injectName(partials: string[], arcs: EventArc[]): string {
         if (partials.length < 2) {
-            return ''
+            return '';
         }
 
-        const eventArc: EventArc | undefined = arcs.find((arc) => arc.name === partials[2])
+        const eventArc: EventArc | undefined = arcs.find((arc) => arc.name === partials[2]);
         if (eventArc === undefined) {
-            return ''
+            return '';
         }
 
-        return eventArc.name + ' (Event ' + eventArc.eventBeats[0].index + ')'
+        return eventArc.name + ' (Event ' + eventArc.eventBeats[0].index + ')';
     }
 }

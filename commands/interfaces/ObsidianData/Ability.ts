@@ -1,7 +1,7 @@
-import { NamedData } from "../NamedData";
+import { NamedData } from '../NamedData';
 
 interface Ability extends NamedData {
-    description: string
+    description: string;
 }
 
-export { Ability }
+export { Ability };

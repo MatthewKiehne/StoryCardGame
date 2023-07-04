@@ -1,9 +1,9 @@
-import { CardData } from "../ObsidianData/CardData";
+import { CardData } from '../ObsidianData/CardData';
 
 export interface RenderCardData extends CardData {
-    orbLinks: string[],
-    htmlTexts: string[],
-    quantityIndex: number,
-    setAbbreviation: string,
-    setQuantity: number
+    orbLinks: string[];
+    htmlTexts: string[];
+    quantityIndex: number;
+    setAbbreviation: string;
+    setQuantity: number;
 }

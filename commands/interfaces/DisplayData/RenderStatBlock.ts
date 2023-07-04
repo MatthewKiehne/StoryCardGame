@@ -1,5 +1,5 @@
-import { StatBlock } from "../ObsidianData/StatBlock";
+import { StatBlock } from '../ObsidianData/StatBlock';
 
-export interface RenderStatBlock extends StatBlock{
-    quantity: number
+export interface RenderStatBlock extends StatBlock {
+    quantity: number;
 }
