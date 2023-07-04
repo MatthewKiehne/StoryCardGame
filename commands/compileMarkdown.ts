@@ -25,11 +25,11 @@ async function compileAll() {
     await createFilesWithCallback(storyBeatDirectory, DataBaseLookUp.eventsDataName, new StoryArcParser(), randomizeStoryBeats)
 }
 
-async function createFiles<T>(sourceDirectory: string, dataName: string, htmlParser: HtmlParser<T>): Promise<DataBaseCollection<T>> {
-    return await createFilesWithCallback(sourceDirectory, dataName, htmlParser, (data: T[]) => {});
+async function createFiles(sourceDirectory: string, dataName: string, htmlParser: HtmlParser<NamedData>): Promise<DataBaseCollection<NamedData>> {
+    return await createFilesWithCallback(sourceDirectory, dataName, htmlParser, (data: NamedData[]) => {});
 }
 
-async function createFilesWithCallback<NamedData>(sourceDirectory: string, dataName: string, htmlParser: HtmlParser<NamedData>, callback: (data: NamedData[]) => void): Promise<DataBaseCollection<NamedData>> {
+async function createFilesWithCallback(sourceDirectory: string, dataName: string, htmlParser: HtmlParser<NamedData>, callback: (data: NamedData[]) => void): Promise<DataBaseCollection<NamedData>> {
     const dataDirectory = './data/' + dataName
 
     const dataFile = './data/' + dataName + '/' + dataName + 'Data.json'
