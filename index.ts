@@ -124,3 +124,45 @@ app.listen(3000, async () => {
     await compileAll();
     console.log('Server started on port 3000');
 })
+
+async function randomizeStoryBeats(filePath: string) {
+    const text: string = fs.readFileSync(filePath, 'utf-8')
+    const storyArcs: EventArc[] = JSON.parse(text)
+
+    const storyBeatPosition: number[] = []
+    for (let a = 0; a < storyArcs.length; a++) {
+        for (let b = 0; b < storyArcs[a].eventBeats.length; b++) {
+            storyBeatPosition.push(storyBeatPosition.length)
+        }
+    }
+
+    for (let i = 0; i < storyBeatPosition.length * 7; i++) {
+        const first = getRandomInt(storyBeatPosition.length)
+        const second = getRandomInt(storyBeatPosition.length)
+
+        const tmp = storyBeatPosition[first]
+        storyBeatPosition[first] = storyBeatPosition[second]
+        storyBeatPosition[second] = tmp
+    }
+
+    let positionIndex = 0
+    for (let a = 0; a < storyArcs.length; a++) {
+        storyArcs[a].startingIndex = storyBeatPosition[positionIndex]
+
+        for (let b = 0; b < storyArcs[a].eventBeats.length; b++) {
+            storyArcs[a].eventBeats[b].index = storyBeatPosition[positionIndex]
+            storyArcs[a].eventBeats[b].name = storyArcs[a].name + ', Part ' + (b + 1)
+
+            positionIndex++
+        }
+    }
+
+    if ((await fs).existsSync(filePath)) {
+        fs.rmSync(filePath, { recursive: true, force: true })
+    }
+    await fs.writeFileSync(filePath, JSON.stringify(storyArcs))
+}
+
+function getRandomInt(max: number) {
+    return Math.floor(Math.random() * max)
+}

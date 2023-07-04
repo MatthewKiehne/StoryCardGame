@@ -6,7 +6,7 @@ import { HtmlParser } from '../../interfaces/HtmlParser';
 const exec = util.promisify(h.exec);
 
 class DirectoryToData {
-    async parse<T>(inputDirectory: string, outputFile: string, parser: HtmlParser<T>) {
+    async parse<T>(inputDirectory: string, outputFile: string, parser: HtmlParser<T>): Promise<T[]> {
         const tempOutputCardDirectory = './tempOutput';
 
         await this.markdownToHtmlFile(inputDirectory, tempOutputCardDirectory);
@@ -28,6 +28,8 @@ class DirectoryToData {
             fs.rmSync(outputFile, { recursive: true, force: true });
         }
         await fs.writeFileSync(outputFile, JSON.stringify(data));
+
+        return data;
     }
 
     private async markdownToHtmlFile(sourceDirectory: string, outputDirectory: string) {

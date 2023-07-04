@@ -5,9 +5,12 @@ import { StatBlockParser } from './classes/Parsers/StatBlockParser'
 import { HtmlParser } from './interfaces/HtmlParser'
 import { BattleMapParser } from './classes/Parsers/BattleMapParser'
 import { StoryArcParser } from './classes/Parsers/StoryArcParser'
-import { EventArc } from './interfaces/ObsidianData/StoryArc'
+import { NamedData } from './interfaces/NamedData'
+import { DataBaseCollection, DataBaseLookUp } from './classes/Lookup/DataBaseLookUp'
 
 async function compileAll() {
+    DataBaseLookUp.Collections = new Map<string, DataBaseCollection<any>>()
+
     const cardDirectory = './World Ideas/Cards'
     await createFiles(cardDirectory, 'card', new CardParser())
 
@@ -18,56 +21,10 @@ async function compileAll() {
     await createFiles(battleMapDirectory, 'battleMaps', new BattleMapParser())
 
     const storyBeatDirectory = './World Ideas/Events'
-    await createFilesWithCallBack(storyBeatDirectory, 'events', new StoryArcParser(), randomizeStoryBeats)
-}
-
-async function randomizeStoryBeats(filePath: string) {
-    const text: string = fs.readFileSync(filePath, 'utf-8')
-    const storyArcs: EventArc[] = JSON.parse(text)
-
-    const storyBeatPosition: number[] = []
-    for (let a = 0; a < storyArcs.length; a++) {
-        for (let b = 0; b < storyArcs[a].eventBeats.length; b++) {
-            storyBeatPosition.push(storyBeatPosition.length)
-        }
-    }
-
-    for (let i = 0; i < storyBeatPosition.length * 7; i++) {
-        const first = getRandomInt(storyBeatPosition.length)
-        const second = getRandomInt(storyBeatPosition.length)
-
-        const tmp = storyBeatPosition[first]
-        storyBeatPosition[first] = storyBeatPosition[second]
-        storyBeatPosition[second] = tmp
-    }
-
-    let positionIndex = 0
-    for (let a = 0; a < storyArcs.length; a++) {
-        storyArcs[a].startingIndex = storyBeatPosition[positionIndex]
-
-        for (let b = 0; b < storyArcs[a].eventBeats.length; b++) {
-            storyArcs[a].eventBeats[b].index = storyBeatPosition[positionIndex]
-            storyArcs[a].eventBeats[b].name = storyArcs[a].name + ', Part ' + (b + 1)
-
-            positionIndex++
-        }
-    }
-
-    if ((await fs).existsSync(filePath)) {
-        fs.rmSync(filePath, { recursive: true, force: true })
-    }
-    await fs.writeFileSync(filePath, JSON.stringify(storyArcs))
-}
-
-function getRandomInt(max: number) {
-    return Math.floor(Math.random() * max)
+    await createFiles(storyBeatDirectory, 'events', new StoryArcParser())
 }
 
 async function createFiles<T>(sourceDirectory: string, dataName: string, htmlParser: HtmlParser<T>) {
-    return await createFilesWithCallBack(sourceDirectory, dataName, htmlParser, async (s: string) => {})
-}
-
-async function createFilesWithCallBack<T>(sourceDirectory: string, dataName: string, htmlParser: HtmlParser<T>, afterDataGenerate: (filePath: string) => Promise<void>) {
     const dataDirectory = './data/' + dataName
 
     const dataFile = './data/' + dataName + '/' + dataName + 'Data.json'
@@ -80,60 +37,77 @@ async function createFilesWithCallBack<T>(sourceDirectory: string, dataName: str
     }
 
     const markdownParser: DirectoryToData = new DirectoryToData()
-    await markdownParser.parse(sourceDirectory, dataFile, htmlParser)
+    const data: T[] = await markdownParser.parse(sourceDirectory, dataFile, htmlParser)
 
-    if (afterDataGenerate != undefined) {
-        await afterDataGenerate(dataFile)
+    const collection: DataBaseCollection<T> = {
+        data: data,
+        indexedData: await createFromIndexData(data, fromIndexFile),
+        nameToIndex: await createToIndexData(data, toIndexFile),
+        nameToData: await createFromNameData(data, fromNameFile),
     }
 
-    await createFromIndexData(dataFile, fromIndexFile)
-    await createToIndexData(dataFile, toIndexFile)
-    await createFromNameData(dataFile, fromNameFile)
+    DataBaseLookUp.Collections.set(dataName, collection)
 }
 
-async function createFromIndexData(inputFile: string, outputFile: string) {
-    const text: string = fs.readFileSync(inputFile, 'utf-8')
-    const json: any[] = JSON.parse(text)
+async function createFromIndexData<T>(parsedData: T[], outputFile: string): Promise<Map<number, T>> {
+    const data: Map<number, T> = new Map<number, T>()
+    const fileData: any = {}
 
-    const data: any = {}
-    for (let i = 0; i < json.length; i++) {
-        data[i] = json[i]
+    for (let i = 0; i < parsedData.length; i++) {
+        data.set(i, parsedData[i])
+        fileData[i] = parsedData[i]
     }
 
     if ((await fs).existsSync(outputFile)) {
         fs.rmSync(outputFile, { recursive: true, force: true })
     }
-    await fs.writeFileSync(outputFile, JSON.stringify(data))
+
+    await fs.writeFileSync(outputFile, JSON.stringify(fileData))
+    return data
 }
 
-async function createToIndexData(inputFile: string, outputFile: string) {
-    const text: string = fs.readFileSync(inputFile, 'utf-8')
-    const json: any[] = JSON.parse(text)
+async function createToIndexData<T>(parsedData: T[], outputFile: string): Promise<Map<string, number>> {
+    const data: Map<string, number> = new Map<string, number>()
+    const fileData: any = {}
 
-    const data: any = {}
-    for (let i = 0; i < json.length; i++) {
-        data[json[i]['name']] = i
+    if (parsedData === undefined) {
+        return data
+    }
+
+    for (let i = 0; i < parsedData.length; i++) {
+        const a = parsedData.at(i) as NamedData | undefined
+        if (a !== undefined && a.name !== undefined) {
+            data.set(a.name, i)
+            fileData[a.name] = i
+        }
     }
 
     if ((await fs).existsSync(outputFile)) {
         fs.rmSync(outputFile, { recursive: true, force: true })
     }
-    await fs.writeFileSync(outputFile, JSON.stringify(data))
+
+    await fs.writeFileSync(outputFile, JSON.stringify(fileData))
+    return data
 }
 
-async function createFromNameData(inputFile: string, outputFile: string) {
-    const text: string = fs.readFileSync(inputFile, 'utf-8')
-    const json: any[] = JSON.parse(text)
-
-    const data: any = {}
-    for (let i = 0; i < json.length; i++) {
-        data[json[i]['name']] = json[i]
+async function createFromNameData<T>(parsedData: T[], outputFile: string): Promise<Map<string, T>> {
+    const data: Map<string, T> = new Map<string, T>()
+    const fileData: any = {}
+    for (let i = 0; i < parsedData.length; i++) {
+        const a = parsedData.at(i) as undefined | NamedData
+        if (a !== undefined) {
+            const b = a as T
+            data.set(a.name as string, b)
+            fileData[a.name] = b
+        }
     }
 
     if ((await fs).existsSync(outputFile)) {
         fs.rmSync(outputFile, { recursive: true, force: true })
     }
-    await fs.writeFileSync(outputFile, JSON.stringify(data))
+
+    await fs.writeFileSync(outputFile, JSON.stringify(fileData))
+    return data
 }
 
-export { compileAll }
+export { compileAll, DataBaseLookUp }
