@@ -12,16 +12,16 @@ async function compileAll() {
     DataBaseLookUp.Collections = new Map<string, DataBaseCollection<any>>()
 
     const cardDirectory = './World Ideas/Cards'
-    await createFiles(cardDirectory, 'card', new CardParser())
+    await createFiles(cardDirectory, DataBaseLookUp.cardDataName, new CardParser())
 
     const statBlockDirectory = './World Ideas/Stat Blocks'
-    await createFiles(statBlockDirectory, 'statBlock', new StatBlockParser())
+    await createFiles(statBlockDirectory, DataBaseLookUp.statBlockDataName, new StatBlockParser())
 
     const battleMapDirectory = './World Ideas/BattleMaps'
-    await createFiles(battleMapDirectory, 'battleMaps', new BattleMapParser())
+    await createFiles(battleMapDirectory, DataBaseLookUp.battleMapDataName, new BattleMapParser())
 
     const storyBeatDirectory = './World Ideas/Events'
-    await createFiles(storyBeatDirectory, 'events', new StoryArcParser())
+    await createFiles(storyBeatDirectory, DataBaseLookUp.eventsDataName, new StoryArcParser())
 }
 
 async function createFiles<T>(sourceDirectory: string, dataName: string, htmlParser: HtmlParser<T>) {

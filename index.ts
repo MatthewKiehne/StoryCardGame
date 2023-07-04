@@ -104,9 +104,10 @@ app.get('/battleMaps', (req, res) => {
 
 app.get('/events', (req, res) => {
     const text: string = fs.readFileSync('./data/events/eventsData.json', 'utf-8')
-    const events: EventArc[] = JSON.parse(text)
+    
+    const events: EventArc[] = randomizeStoryBeats(JSON.parse(text) as EventArc[]);
 
-    const converter: EventBeatConverter = new EventBeatConverter(events);
+    const converter: EventBeatConverter = new EventBeatConverter();
 
     const data: RenderEventBeat[] = []
     for (let a = 0; a < events.length; a++) {
@@ -125,13 +126,11 @@ app.listen(3000, async () => {
     console.log('Server started on port 3000');
 })
 
-async function randomizeStoryBeats(filePath: string) {
-    const text: string = fs.readFileSync(filePath, 'utf-8')
-    const storyArcs: EventArc[] = JSON.parse(text)
+function randomizeStoryBeats(arcs: EventArc[]): EventArc[] {
 
     const storyBeatPosition: number[] = []
-    for (let a = 0; a < storyArcs.length; a++) {
-        for (let b = 0; b < storyArcs[a].eventBeats.length; b++) {
+    for (let a = 0; a < arcs.length; a++) {
+        for (let b = 0; b < arcs[a].eventBeats.length; b++) {
             storyBeatPosition.push(storyBeatPosition.length)
         }
     }
@@ -146,21 +145,16 @@ async function randomizeStoryBeats(filePath: string) {
     }
 
     let positionIndex = 0
-    for (let a = 0; a < storyArcs.length; a++) {
-        storyArcs[a].startingIndex = storyBeatPosition[positionIndex]
+    for (let a = 0; a < arcs.length; a++) {
+        arcs[a].startingIndex = storyBeatPosition[positionIndex]
 
-        for (let b = 0; b < storyArcs[a].eventBeats.length; b++) {
-            storyArcs[a].eventBeats[b].index = storyBeatPosition[positionIndex]
-            storyArcs[a].eventBeats[b].name = storyArcs[a].name + ', Part ' + (b + 1)
-
+        for (let b = 0; b < arcs[a].eventBeats.length; b++) {
+            arcs[a].eventBeats[b].index = storyBeatPosition[positionIndex]
             positionIndex++
         }
     }
 
-    if ((await fs).existsSync(filePath)) {
-        fs.rmSync(filePath, { recursive: true, force: true })
-    }
-    await fs.writeFileSync(filePath, JSON.stringify(storyArcs))
+    return arcs;
 }
 
 function getRandomInt(max: number) {

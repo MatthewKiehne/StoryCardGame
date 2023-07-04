@@ -32,6 +32,14 @@ export class StoryArcParser implements HtmlParser<EventArc> {
             }
         }
 
+        if(result.eventBeats !== undefined)
+        {
+            for(let i = 0; i < result.eventBeats.length; i++)
+            {
+                result.eventBeats[i].name = result.name + ', Part ' + (i + 1);
+            }
+        }
+
         return result
     }
 }

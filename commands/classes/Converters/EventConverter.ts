@@ -10,12 +10,7 @@ import { DataConverter } from "./DataConverter";
 
 export class EventBeatConverter implements DataConverter<EventBeat, RenderEventBeat>{
 
-    private arcs: EventArc[] = []
-
-    constructor (eventArcs: EventArc[])
-    {
-        this.arcs = eventArcs;
-    }
+    constructor () {}
 
     convert(data: EventBeat, additionalData: any): RenderEventBeat {
         const result: RenderEventBeat = {
@@ -28,7 +23,7 @@ export class EventBeatConverter implements DataConverter<EventBeat, RenderEventB
 
         const injectors: HtmlInjector[] = [
             new IconInjector(),
-            new EventInjector(this.arcs)
+            new EventInjector()
         ];
 
         const injectorContext: InjectorContext = {
